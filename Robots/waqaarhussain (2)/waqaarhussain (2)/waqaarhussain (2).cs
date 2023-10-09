@@ -162,6 +162,7 @@ namespace cAlgo.Robots
             else { return double.NaN; }
         }
 
+        //Round Price by Symbol
         private double RoundPrice(double price, TradeType tradeType)
         {
             var _symbolInfo = Symbols.GetSymbolInfo(SymbolName);
