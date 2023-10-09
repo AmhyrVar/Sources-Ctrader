@@ -109,6 +109,8 @@ namespace cAlgo.Robots
         private bool GreenTrigger;
         private bool RedTrigger;
 
+        //Stuff that goes intro CheckTime() filled OnStart
+
         private int StartHour;
         private int StartMinute;
         private int StopHour;
@@ -116,10 +118,10 @@ namespace cAlgo.Robots
 
 
 
-        //Check if a time is between two times HH:MM
+        //Check if a time is between two times HH:MM when function called 
         private bool CheckTime()
         {
-            var nawak = 0;
+           
             var startTime = new DateTime(Server.TimeInUtc.Year, Server.TimeInUtc.Month, Server.TimeInUtc.Day, StartHour, StartMinute, 0);
             var stopTime = new DateTime(Server.TimeInUtc.Year, Server.TimeInUtc.Month, Server.TimeInUtc.Day, StopHour, StopMinute, 0);
 
@@ -134,6 +136,7 @@ namespace cAlgo.Robots
             var startTime = new DateTime(Server.TimeInUtc.Year, Server.TimeInUtc.Month, Server.TimeInUtc.Day, StartHour, StartMinute, 0);
           
             
+
 
             string[] parts = TradeTime.Split(':');
 
@@ -226,6 +229,8 @@ namespace cAlgo.Robots
 
             return -priceDifference;
         }
+
+        //Balance % max equity risk
         protected double GetVolume(double SL)
         {
 
@@ -249,6 +254,7 @@ namespace cAlgo.Robots
             return Math.Floor(price * multiplier) / multiplier;
         }
 
+        //Trailing stop
         private void SetTrailingStop()
         {
             var sellPositions = Positions.FindAll("Sell", SymbolName);
