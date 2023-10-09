@@ -1,0 +1,15 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\bin\Release\net6.0\Something.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\bin\Release\net6.0\Something.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\bin\Release\net6.0\Something.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\bin\Release\net6.0\SuperProfit.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\bin\Release\net6.0\SuperProfit.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\refint\Something.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\Something.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Something\Something\obj\Release\net6.0\ref\Something.dll

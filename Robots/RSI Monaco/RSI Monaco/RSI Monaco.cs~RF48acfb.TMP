@@ -1,0 +1,85 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class RSIMonaco : Robot
+    {
+        [Parameter("Minimum Ratio Shadow Over Body", DefaultValue = 2.0)]
+        public double bodyshadowratio { get; set; }
+
+
+        RelativeStrengthIndex RSI;
+
+        protected override void OnStart()
+        {
+            RSI = Indicators.RelativeStrengthIndex(Bars.ClosePrices, 14);
+
+        }
+        private bool bullishEC()
+        {
+            if (Bars.OpenPrices.Last(1) > Bars.ClosePrices.Last(1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool boolbearishEC()
+        {
+            if (Bars.OpenPrices.Last(1) < Bars.ClosePrices.Last(1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool hammervalid()
+        {
+            if (Bars.ClosePrices.Last(2)>= Bars.ClosePrices.Last(1) &&
+                Bars.OpenPrices.Last(2)>= Bars.ClosePrices.Last(1) &&
+                 Bars.ClosePrices.Last(2) >= Bars.OpenPrices.Last(1) &&
+                 Bars.OpenPrices.Last(2) >= Bars.OpenPrices.Last(1))
+            {
+                return true;
+            }
+            else { return false; }
+        }
+        private bool shootingstarvalid()
+        {
+            if (Bars.ClosePrices.Last(2) <= Bars.ClosePrices.Last(1)&& 
+                Bars.OpenPrices.Last(2) <= Bars.ClosePrices.Last(1) && 
+                Bars.ClosePrices.Last(2) <Bars.OpenPrices.Last(1) &&
+                Bars.OpenPrices.Last(2) <= Bars.OpenPrices.Last(1))
+                {
+                return true;
+            }
+            else { return false; }
+        }
+
+        private double csbody()
+        {
+            return Math.Abs(Bars.OpenPrices.Last(1) - Bars.ClosePrices.Last(1));
+        }
+
+        protected override void OnTick()
+        {
+            // Put your core logic here
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

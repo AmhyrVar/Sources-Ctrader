@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\bin\Release\net6.0\Renko Strategy-7 v3.0 (2).deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\bin\Release\net6.0\Renko Strategy-7 v3.0 (2).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\bin\Release\net6.0\Renko Strategy-7 v3.0 (2).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\refint\Renko Strategy-7 v3.0 (2).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\Renko Strategy-7 v3.0 (2).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0 (2)\Renko Strategy-7 v3.0 (2)\obj\Release\net6.0\ref\Renko Strategy-7 v3.0 (2).dll

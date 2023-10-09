@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\publish\Joy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\publish\Joy.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\publish\Joy.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\publish\cAlgo.API.dll

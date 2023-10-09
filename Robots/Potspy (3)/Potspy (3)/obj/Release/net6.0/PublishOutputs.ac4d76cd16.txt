@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy (3)\Potspy (3)\bin\Release\net6.0\publish\Potspy (3).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy (3)\Potspy (3)\bin\Release\net6.0\publish\Potspy (3).deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy (3)\Potspy (3)\bin\Release\net6.0\publish\Potspy (3).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy (3)\Potspy (3)\bin\Release\net6.0\publish\cAlgo.API.dll

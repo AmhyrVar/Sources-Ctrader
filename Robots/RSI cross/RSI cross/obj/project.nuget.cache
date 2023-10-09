@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "mjU+iqlQNte6pOP+W6c5OVJDp9r6mj/pGEQFCkAvkxfubzGFucZD94h30LnBTfw6V0OWrePegW3uPrTGRUUYHg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\RSI cross\\RSI cross\\RSI cross.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.2\\ctrader.automate.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

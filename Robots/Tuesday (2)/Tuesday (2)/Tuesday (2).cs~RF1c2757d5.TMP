@@ -1,0 +1,377 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Tuesday : Robot
+    {
+        [Parameter(DefaultValue = 10.0)]
+        public double AwayPips { get; set; }
+
+        [Parameter(DefaultValue = 2)]
+        public double RiskPercent { get; set; }
+
+        [Parameter(DefaultValue = 50)]
+        public double TP_Percentage { get; set; }
+
+
+        [Parameter(DefaultValue = 25)]
+        public double SL_Percentage { get; set; }
+
+
+        [Parameter(DefaultValue = 3)]
+        public int Entries { get; set; }
+
+
+        [Parameter(DefaultValue = 100)]
+        public double Range { get; set; }
+
+        [Parameter(Group = "Days to trade", DefaultValue = true)]
+        public bool TradeMonday { get; set; }
+
+
+
+
+        public bool State = false;
+
+        public double Highstuff;
+        public double Lowstuff;
+
+        //Arrays section
+        bool[] GetHL = new bool[5];
+        int[] Counters = new int[5];
+        double[] Highs = new double[5];
+        double[] Lows = new double[5];
+
+        public int Counter = 0;
+
+        //NY Close in UTC = 10pm
+
+        protected override void OnStart()
+        {
+            PendingOrders.Filled += PendingOrders_Filled;
+            Positions.Closed += Positions_Closed;
+
+            if (!IsBacktesting)
+            {
+                Stop();
+            }
+        }
+
+        private bool CheckRrange(double R)
+        {
+            if (R > Range)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private void Positions_Closed(PositionClosedEventArgs obj)
+        {
+            if (obj.Reason == PositionCloseReason.StopLoss && obj.Position.Pips < 0)
+            {
+                Counter++;
+                State = false;
+                Print("Counter is " + Counter);
+            }
+        }
+
+
+
+        private void PendingOrders_Filled(PendingOrderFilledEventArgs obj)
+        {
+            Print(string.Format("PendingOrders.Filled event received. (Order #{0} filled. Position is #{1})", obj.PendingOrder.Id, obj.Position.Id));
+            foreach (var pending in PendingOrders)
+            {
+                if (pending.Label == "GJ")
+                {
+                    CancelPendingOrder(pending);
+                }
+            }
+        }
+
+        protected double GetVolume(double SL)
+        {
+
+
+            var x = 1.0;
+
+
+
+            var RawRisk = Account.Balance * RiskPercent / 100;
+            x = Math.Round((RawRisk) / (SL * Symbol.PipValue * Symbol.VolumeInUnitsMin));
+
+
+            if (Symbol.VolumeInUnitsMin > 1)
+            {
+                return Convert.ToInt32(x * Symbol.VolumeInUnitsMin);
+            }
+            else
+            {
+                return (x * Symbol.VolumeInUnitsMin);
+            }
+
+
+
+
+        }
+
+        protected void MDaysTrade(int dayCode)
+        {
+            var highestpips = Highs[dayCode] + (AwayPips * Symbol.PipSize);
+            var lowestpips = Lows[dayCode] - (AwayPips * Symbol.PipSize);
+            var delta = (Highs[dayCode] - Lows[dayCode]) / Symbol.PipSize;
+
+
+
+            //  Print("Highestpips " + highestpips);
+            //  Print("Lowestpips " + lowestpips);
+            // Print("Delta pips " + delta);
+
+            var SL = delta * SL_Percentage / 100;
+            var TP = delta * TP_Percentage / 100;
+            if (CheckRrange(delta))
+            {
+                PlaceStopLimitOrder(TradeType.Buy, SymbolName, GetVolume(SL), highestpips, 5, "GJ", SL, TP);
+                PlaceStopLimitOrder(TradeType.Sell, SymbolName, GetVolume(SL), lowestpips, 5, "GJ", SL, TP);
+                //Print("Highest " + Highstuff);
+                //Print("Lowest " + Lowstuff);
+            }
+        }
+
+        protected override void OnBar()
+        {
+
+            //Close trades by Friday
+            if (Server.Time.DayOfWeek == DayOfWeek.Friday && Server.Time.Hour >= 20 && Counter != 0)
+            {
+                Print("Friday Node");
+
+                foreach (var pending in PendingOrders)
+                {
+                    if (pending.Label == "GJ")
+                    {
+                        Print("Cancelling pending " + pending);
+                        CancelPendingOrder(pending);
+                    }
+                }
+
+                foreach (var po in Positions)
+                {
+                    if (po.Label == "GJ")
+                    {
+                        Print("Closing position " + po);
+                        ClosePosition(po);
+                    }
+                }
+
+
+
+                Counter = 0;
+                State = false;
+            }
+
+
+            if (Counter > 1 && Counter < Entries + 1 && !State)
+            {
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+
+                //Print("Highestpips++ " + highestpips);
+                //Print("Lowestpips++ " + lowestpips);
+                //Print("Delta pips++ " + delta);
+
+                var SL = delta * 0.25;
+                var TP = delta * 0.5;
+                if (CheckRrange(delta))
+                {
+                    PlaceStopLimitOrder(TradeType.Buy, SymbolName, GetVolume(SL), highestpips, 5, "GJ", SL, TP);
+                    PlaceStopLimitOrder(TradeType.Sell, SymbolName, GetVolume(SL), lowestpips, 5, "GJ", SL, TP);
+                }
+                //Print("Highest++ " + Highstuff);
+                ///Print("Lowest++ " + Lowstuff);
+
+                Counter++;
+                State = true;
+
+                Print("Second entry");
+            }
+
+
+            if (!GetHL[2] && Server.Time.DayOfWeek == DayOfWeek.Wednesday)
+            {
+                GetHL[3] = false;
+                //Get High and Low
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+                Highs[2] = Highstuff;
+                Lows[2] = Lowstuff;
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+                var HighBorne = Chart.DrawHorizontalLine("High", Highs[2], Color.Blue, 5);
+
+                var LowBorne = Chart.DrawHorizontalLine("Low", Lows[2], Color.Red, 5);
+
+            }
+
+            if (!GetHL[1] && Server.Time.DayOfWeek == DayOfWeek.Tuesday)
+            {
+                GetHL[2] = false;
+                //Get High and Low
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+                Highs[1] = Highstuff;
+                Lows[1] = Lowstuff;
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+                var HighBorne = Chart.DrawHorizontalLine("High", Highs[1], Color.Blue, 5);
+
+                var LowBorne = Chart.DrawHorizontalLine("Low", Lows[1], Color.Red, 5);
+
+            }
+
+            if (!GetHL[3] && Server.Time.DayOfWeek == DayOfWeek.Thursday)
+            {
+                GetHL[4] = false;
+                //Get High and Low
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+                Highs[3] = Highstuff;
+                Lows[3] = Lowstuff;
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+                var HighBorne = Chart.DrawHorizontalLine("High", Highs[3], Color.Blue, 5);
+
+                var LowBorne = Chart.DrawHorizontalLine("Low", Lows[3], Color.Red, 5);
+
+            }
+            if (!GetHL[4] && Server.Time.DayOfWeek == DayOfWeek.Friday)
+            {
+                GetHL[0] = false;
+                //Get High and Low
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+                Highs[4] = Highstuff;
+                Lows[4] = Lowstuff;
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+                var HighBorne = Chart.DrawHorizontalLine("High", Highs[4], Color.Blue, 5);
+
+                var LowBorne = Chart.DrawHorizontalLine("Low", Lows[4], Color.Red, 5);
+
+            }
+
+            if (!GetHL[0] && Server.Time.DayOfWeek == DayOfWeek.Monday)
+            {
+                //Clear next day's bool
+                GetHL[1] = false;
+                //Get High and Low
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+                Highs[0] = Highstuff;
+                Lows[0] = Lowstuff;
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+                var HighBorne = Chart.DrawHorizontalLine("High", Highs[0], Color.Blue, 5);
+
+                var LowBorne = Chart.DrawHorizontalLine("Low", Lows[0], Color.Red, 5);
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+    }
+}

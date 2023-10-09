@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6MbuP4kKo6H2nXX3bLTksVmFHBycG3SkLpRJ2/7XK+YB6GxSwH6GXLcXrYnKC6QVI9nfjA8k3rLQQzxo4AqR5A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\Crazy sum last to date OnBar (2)\\Crazy sum last to date OnBar (2)\\Crazy sum last to date OnBar (2).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.8\\ctrader.automate.1.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

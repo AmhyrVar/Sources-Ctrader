@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\Joy.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\Joy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\bin\Release\net6.0\Joy.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\refint\Joy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\Joy.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Joy\Joy\obj\Release\net6.0\ref\Joy.dll

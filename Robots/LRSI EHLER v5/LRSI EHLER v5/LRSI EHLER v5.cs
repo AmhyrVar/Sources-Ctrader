@@ -1,0 +1,252 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class LRSIEHLERv5 : Robot
+    {
+        [Parameter(DefaultValue = 0.2)]
+        public double gamma { get; set; }
+
+        [Parameter("MA Method", DefaultValue = MovingAverageType.Simple)]
+        public MovingAverageType MA_Method { get; set; }
+
+        [Parameter("Period", DefaultValue = 15)]
+        public int Period { get; set; }
+
+        [Parameter("Average true range Period", DefaultValue = 14)]
+        public int Average_true_range_Period { get; set; }
+
+        [Parameter("Weight", DefaultValue = 3.0)]
+        public double Weight { get; set; }
+
+        [Parameter("True:High_Low False:Close", DefaultValue = true)]
+        public bool HighLow { get; set; }
+
+        [Parameter(DefaultValue = 0.1)]
+        public double volume { get; set; }
+
+
+        [Parameter(DefaultValue = true)]
+        public bool TrailStop { get; set; }
+
+
+        [Parameter(DefaultValue = true)]
+        public bool OnBar_Bot { get; set; }
+
+        [Parameter(DefaultValue = false)]
+        public bool Hedging { get; set; }
+
+        [Parameter(DefaultValue = false)]
+        public bool Repeater { get; set; }
+
+        [Parameter("Sl multiplier", DefaultValue = 1)]
+        public int SLm { get; set; }
+        [Parameter("TP multiplier", DefaultValue = 2)]
+        public int TPm { get; set; }
+
+        AverageTrueRange ATR;
+        Laguerre_RSI LRSI;
+        ATRStops ATR_Stops;
+        EhlersSmoothedAdaptiveMomentum ESAM;
+
+        protected override void OnStart()
+        {
+            //BB = Indicators.BollingerBands(BB_Source, BB_Period, BB_StD, BB_MA_Type);
+            ATR_Stops = Indicators.GetIndicator<ATRStops>(MA_Method, Period, Weight, HighLow);
+            LRSI = Indicators.GetIndicator<Laguerre_RSI>(gamma);
+            ATR = Indicators.AverageTrueRange(Average_true_range_Period, MA_Method);
+            //ESAM = Indicators.GetIndicator<EhlersSmoothedAdaptiveMomentum>(Source, Alpha, CutOff);
+        }
+
+        protected override void OnBar()
+        {
+
+
+            if (OnBar_Bot)
+            {
+                var LP = Positions.FindAll("ESAMRSI", SymbolName, TradeType.Buy);
+                var SP = Positions.FindAll("ESAMRSI", SymbolName, TradeType.Sell);
+                // if Ehler green buy when LRSI crosses over red line
+                if (Bars.ClosePrices.Last(1) > ATR_Stops.Result.Last(1) && LRSI.laguerrersi.HasCrossedAbove(LRSI.oversold, 1))
+                {
+                    if (SP.Length == 0 && LP.Length == 0 && !Repeater && !Hedging)
+                    {
+                        if (TrailStop)
+                        {
+                            var cusTP = ATR.Result.LastValue * TPm / Symbol.PipSize;
+                            var cusSL = ATR.Result.LastValue * SLm / Symbol.PipSize;
+                            Print("TP = " + cusTP + "Sl = " + cusSL);
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm / Symbol.PipSize, ATR.Result.LastValue * TPm / Symbol.PipSize, null, true);
+                            //Print("ATR buy" + ATR_Stops.Result.Last(1) + " Close last 1 " + Bars.ClosePrices.Last(1) + "Time " + Bars.OpenTimes.Last(1));
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+                    else if (Repeater && !Hedging && SP.Length == 0)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+                    else if (Hedging && Repeater)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+                    else if (Hedging && !Repeater && LP.Length == 0)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+
+
+                    //---------------------
+
+
+
+
+                }
+                if (Bars.ClosePrices.Last(1) < ATR_Stops.Result.Last(1) && LRSI.laguerrersi.HasCrossedBelow(LRSI.overbought, 1))
+                {
+
+
+                    if (SP.Length == 0 && LP.Length == 0 && !Repeater && !Hedging)
+                    {
+                        if (TrailStop)
+                        {
+                            var cusTP = ATR.Result.LastValue * TPm / Symbol.PipSize;
+                            var cusSL = ATR.Result.LastValue * SLm / Symbol.PipSize;
+                            Print("TP = " + cusTP + "Sl = " + cusSL);
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm / Symbol.PipSize, ATR.Result.LastValue * TPm / Symbol.PipSize, null, true);
+                            // Print("ATR sell" + ATR_Stops.Result.Last(1) + " Close last 1 " + Bars.ClosePrices.Last(1) + "Time " + Bars.OpenTimes.Last(1));
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm / Symbol.PipSize, ATR.Result.LastValue * TPm / Symbol.PipSize);
+                        }
+                    }
+                    else if (Repeater && !Hedging && LP.Length == 0)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm / Symbol.PipSize, ATR.Result.LastValue * TPm / Symbol.PipSize, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+                    else if (Hedging && Repeater)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+                    else if (Hedging && !Repeater && SP.Length == 0)
+                    {
+                        if (TrailStop)
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                        }
+                        else
+                        {
+                            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                        }
+                    }
+
+
+                }
+            }
+
+            // if ehler red sell when LRSI crosses under green line
+        }
+        protected override void OnTick()
+        {
+            foreach (var po in Positions)
+            {
+                if (po.TradeType == TradeType.Buy && po.SymbolName == SymbolName && po.Label == "ESAMRSI")
+                {
+                    if (Bars.ClosePrices.LastValue < ATR_Stops.Result.LastValue)
+                    {
+                        ClosePosition(po);
+                    }
+                }
+
+                if (po.TradeType == TradeType.Sell && po.SymbolName == SymbolName && po.Label == "ESAMRSI")
+                {
+                    if (Bars.ClosePrices.LastValue > ATR_Stops.Result.LastValue)
+                    {
+                        ClosePosition(po);
+                    }
+                }
+            }
+            if (!OnBar_Bot)
+            {
+                var LP = Positions.FindAll("ESAMRSI", SymbolName, TradeType.Buy);
+                var SP = Positions.FindAll("ESAMRSI", SymbolName, TradeType.Sell);
+                // if Ehler green buy when LRSI crosses over red line
+                if (LP.Length == 0 && Bars.ClosePrices.Last(1) > ATR_Stops.Result.Last(1) && LRSI.laguerrersi.HasCrossedAbove(LRSI.oversold, 1))
+                {
+
+                    if (TrailStop)
+                    {
+                        ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm / Symbol.PipSize, ATR.Result.LastValue * TPm / Symbol.PipSize, null, true);
+                    }
+                    else
+                    {
+                        ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                    }
+
+                }
+                if (SP.Length == 0 && Bars.ClosePrices.Last(1) < ATR_Stops.Result.Last(1) && LRSI.laguerrersi.HasCrossedBelow(LRSI.overbought, 1))
+                {
+                    if (TrailStop)
+                    {
+                        ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm, null, true);
+                    }
+                    else
+                    {
+                        ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ESAMRSI", ATR.Result.LastValue * SLm, ATR.Result.LastValue * TPm);
+                    }
+
+                }
+            }
+
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OArzBaJXDaKvmxU039xwwmG2GXEvULiMh/SbqqTgQNRnR/zWd+faBziqLOxwD3zcI1fPSdva+LUWoNIu68SnEg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\ButtonCode (2)\\ButtonCode (2)\\ButtonCode (2).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.2\\ctrader.automate.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

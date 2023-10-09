@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\publish\Dejan.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\publish\Dejan.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\publish\Dejan.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\publish\cAlgo.API.dll

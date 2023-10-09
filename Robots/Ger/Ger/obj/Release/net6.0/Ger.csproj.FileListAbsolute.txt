@@ -1,0 +1,15 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\Ger.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\Ger.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\Ger.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\SuperProfit.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\SuperProfit.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\refint\Ger.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\Ger.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\obj\Release\net6.0\ref\Ger.dll

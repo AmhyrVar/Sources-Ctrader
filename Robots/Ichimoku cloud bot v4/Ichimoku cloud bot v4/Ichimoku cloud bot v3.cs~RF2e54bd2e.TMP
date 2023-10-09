@@ -1,0 +1,323 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using CsvHelper;
+
+using System.Collections.Generic;
+using System.IO;
+
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class Ichimokucloudbotv3 : Robot
+    {
+        [Parameter(DefaultValue = 0.01)]
+        public double volume { get; set; }
+
+
+        [Parameter(DefaultValue = "F:\\\\Ichimoku.csv")]
+        public string file { get; set; }
+
+
+        private Bars data1H;
+        private Bars data4H;
+
+        private bool h1_trade = false;
+        private int Clock_var;
+
+        IchimokuKinkoHyo ichimoku1;
+        IchimokuKinkoHyo ichimoku4;
+        IchimokuKinkoHyo ichimoku30;
+
+        List<OpenPend> Pendrecords = new List<OpenPend>();
+
+        protected override void OnStart()
+        {
+            data1H = MarketData.GetBars(TimeFrame.Hour);
+            data4H = MarketData.GetBars(TimeFrame.Hour4);
+            ichimoku30 = Indicators.IchimokuKinkoHyo(9, 26, 52);
+            ichimoku1 = Indicators.IchimokuKinkoHyo(data1H, 9, 26, 52);
+            ichimoku4 = Indicators.IchimokuKinkoHyo(data4H, 9, 26, 52);
+
+        }
+
+        private bool TimeCheck()
+        {
+
+            if (Server.Time.Hour >= 7 && Server.Time.Hour < 17)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public class OpenPend
+        {
+
+
+            public string Direction { get; set; }
+
+            public DateTime TimeEvent { get; set; }
+
+            public string TF { get; set; }
+
+
+        }
+
+        public void WritePend(string DirectionTrade, string TimeframeTrade)
+        {
+
+
+            var timeEvent = Bars.OpenTimes.LastValue;
+
+            if (TimeframeTrade == "1H")
+            {
+                timeEvent = data1H.OpenTimes.Last(1);
+            }
+
+            else
+            {
+                timeEvent = Bars.OpenTimes.Last(1);
+            }
+
+            OpenPend record = new OpenPend 
+            {
+
+                Direction = DirectionTrade,
+                TimeEvent = timeEvent,
+                TF = TimeframeTrade
+
+
+
+
+            };
+
+
+            Pendrecords.Add(record);
+
+
+            using (var writer = new StreamWriter(file))
+            {
+                using (var csv = new CsvWriter(writer))
+                {
+                    csv.WriteRecords(Pendrecords);
+
+                }
+            }
+
+
+        }
+
+        protected override void OnBar()
+        {
+
+
+            var M30_SSA = ichimoku30.SenkouSpanA.Last(26);
+            var M30_SSB = ichimoku30.SenkouSpanB.Last(26);
+            var M30_OP = Bars.OpenPrices.Last(1);
+            var M30_CP = Bars.ClosePrices.Last(1);
+
+            var H1_SSA = ichimoku1.SenkouSpanA.Last(26);
+            var H1_SSB = ichimoku1.SenkouSpanB.Last(26);
+            var H1_OP = data1H.OpenPrices.Last(1);
+            var H1_CP = data1H.ClosePrices.Last(1);
+
+
+
+
+
+
+            if (TimeCheck() && ichimoku4.SenkouSpanA.LastValue > ichimoku4.SenkouSpanB.LastValue)
+            {
+
+                if ((ichimoku30.SenkouSpanA.Last(26) > ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) > ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) < ichimoku30.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) > ichimoku30.SenkouSpanA.Last(26)) || (ichimoku30.SenkouSpanA.Last(26) < ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) < ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) > ichimoku30.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) > ichimoku30.SenkouSpanB.Last(26)))
+                {
+
+
+                    List<double> list = new List<double>();
+
+
+                    for (int i = 0; i < 26; i++)
+                    {
+                        list.Add(ichimoku30.SenkouSpanA.Last(26 - i));
+                        list.Add(ichimoku30.SenkouSpanB.Last(26 - i));
+                    }
+
+                    var tarprice = list.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
+
+
+
+                    var MinSSAB = Math.Min(ichimoku30.SenkouSpanA.Last(26), ichimoku30.SenkouSpanB.Last(26));
+                    var SL = Math.Abs(Convert.ToDouble(Bars.ClosePrices.Last(1) - MinSSAB)) / Symbol.PipSize;
+
+
+                    var pos = Positions.FindAll("Ichi", SymbolName);
+                    var Pending = PendingOrders.Where(posLab => posLab.Label == "Ichi" && posLab.SymbolName == SymbolName).Count();
+
+
+                    if (pos.Length == 0 && Pending == 0 && SL >= 10)
+                    {
+                        DateTime expiry = Server.Time.AddHours(3);
+                        PlaceLimitOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), tarprice, "Ichi", SL, 2 * SL, expiry);
+                        WritePend("Long", "30min");
+                        Clock_var = 6;
+                    }
+
+
+
+                }
+
+
+                if ((ichimoku1.SenkouSpanA.Last(26) > ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) > ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) < ichimoku1.SenkouSpanA.Last(26) && data1H.ClosePrices.Last(1) > ichimoku1.SenkouSpanA.Last(26)) || (ichimoku1.SenkouSpanA.Last(26) < ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) < ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) > ichimoku1.SenkouSpanA.Last(26) && data1H.ClosePrices.Last(1) > ichimoku1.SenkouSpanB.Last(26)))
+                {
+
+
+                    List<double> list = new List<double>();
+
+
+                    for (int i = 0; i < 26; i++)
+                    {
+                        list.Add(ichimoku1.SenkouSpanA.Last(26 - i));
+                        list.Add(ichimoku1.SenkouSpanB.Last(26 - i));
+                    }
+
+                    var tarprice = list.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
+
+                    var MinSSAB = Math.Min(ichimoku1.SenkouSpanA.Last(26), ichimoku1.SenkouSpanB.Last(26));
+                    var SL = Math.Abs(Convert.ToDouble(data1H.ClosePrices.Last(1) - MinSSAB)) / Symbol.PipSize;
+
+
+                    var pos = Positions.FindAll("Ichi", SymbolName);
+                    var Pending = PendingOrders.Where(posLab => posLab.Label == "Ichi" && posLab.SymbolName == SymbolName).Count();
+
+
+                    if (pos.Length == 0 && Pending == 0 && SL >= 10)
+                    {
+                        DateTime expiry = Server.Time.AddHours(3);
+                        PlaceLimitOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), tarprice, "Ichi", SL, 2 * SL, expiry);
+                        WritePend("Long", "1H");
+
+                        h1_trade = true;
+                        Clock_var = 6;
+                    }
+
+
+
+
+
+                }
+
+            }
+
+
+
+            if (TimeCheck() && ichimoku4.SenkouSpanA.LastValue < ichimoku4.SenkouSpanB.LastValue)
+            {
+
+                if ((ichimoku30.SenkouSpanA.Last(26) < ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) < ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) > ichimoku30.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) < ichimoku30.SenkouSpanA.Last(26)) || (ichimoku30.SenkouSpanA.Last(26) > ichimoku30.SenkouSpanB.Last(26) && Bars.OpenPrices.Last(1) < ichimoku30.SenkouSpanA.Last(26) && Bars.OpenPrices.Last(1) > ichimoku30.SenkouSpanB.Last(26) && Bars.ClosePrices.Last(1) < ichimoku30.SenkouSpanB.Last(26)))
+                {
+
+                    List<double> list = new List<double>();
+
+
+                    for (int i = 0; i < 26; i++)
+                    {
+                        list.Add(ichimoku30.SenkouSpanA.Last(26 - i));
+                        list.Add(ichimoku30.SenkouSpanB.Last(26 - i));
+                    }
+
+                    var tarprice = list.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
+
+
+                    var MaxSSAB = Math.Min(ichimoku30.SenkouSpanA.Last(26), ichimoku30.SenkouSpanB.Last(26));
+                    var SL = (Math.Abs(Convert.ToDouble(Bars.ClosePrices.Last(1) - MaxSSAB)) / Symbol.PipSize) + 2 * Symbol.PipSize;
+
+                    var pos = Positions.FindAll("Ichi", SymbolName);
+                    var Pending = PendingOrders.Where(posLab => posLab.Label == "Ichi" && posLab.SymbolName == SymbolName).Count();
+
+
+                    if (pos.Length == 0 && Pending == 0 && SL >= 10)
+                    {
+                        DateTime expiry = Server.Time.AddHours(3);
+                        PlaceLimitOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), tarprice, "Ichi", SL, 2 * SL, expiry);
+                        WritePend("short", "30min");
+                        Clock_var = 6;
+                    }
+
+
+
+                }
+                if ((!h1_trade && ichimoku1.SenkouSpanA.Last(26) < ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) < ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) > ichimoku1.SenkouSpanA.Last(26) && data1H.ClosePrices.Last(1) < ichimoku1.SenkouSpanA.Last(26)) || (!h1_trade && ichimoku1.SenkouSpanA.Last(26) > ichimoku1.SenkouSpanB.Last(26) && data1H.OpenPrices.Last(1) < ichimoku1.SenkouSpanA.Last(26) && data1H.OpenPrices.Last(1) > ichimoku1.SenkouSpanB.Last(26) && data1H.ClosePrices.Last(1) < ichimoku1.SenkouSpanB.Last(26)))
+                {
+
+
+                    List<double> list = new List<double>();
+
+
+                    for (int i = 0; i < 26; i++)
+                    {
+                        list.Add(ichimoku1.SenkouSpanA.Last(26 - i));
+                        list.Add(ichimoku1.SenkouSpanB.Last(26 - i));
+                    }
+
+                    var tarprice = list.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
+
+                    var MaxSSAB = Math.Max(ichimoku1.SenkouSpanA.Last(26), ichimoku1.SenkouSpanB.Last(26));
+                    var SL = (Math.Abs(Convert.ToDouble(data1H.ClosePrices.Last(1) - MaxSSAB)) / Symbol.PipSize) + 2 * Symbol.PipSize;
+
+
+                    var pos = Positions.FindAll("Ichi", SymbolName);
+                    var Pending = PendingOrders.Where(posLab => posLab.Label == "Ichi" && posLab.SymbolName == SymbolName).Count();
+
+
+                    if (pos.Length == 0 && Pending == 0 && SL >= 10)
+                    {
+                        DateTime expiry = Server.Time.AddHours(3);
+                        PlaceLimitOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), tarprice, "Ichi", SL, 2 * SL, expiry);
+                        WritePend("short", "1H");
+                        h1_trade = true;
+                        Clock_var = 6;
+                    }
+
+
+
+
+
+                }
+            }
+
+        }
+
+        protected override void OnTick()
+        {
+            foreach (var po in Positions)
+            {
+
+                var TPinPips = Math.Abs(Convert.ToDouble(po.TakeProfit - po.EntryPrice) / Symbol.PipSize);
+
+
+                if (po.Label == "Ichi" && po.SymbolName == SymbolName && po.Pips >= TPinPips * 0.5 && po.TradeType == TradeType.Buy && po.StopLoss < po.EntryPrice)
+                {
+
+                    po.ModifyStopLossPips(po.EntryPrice + (1 / Symbol.PipSize));
+
+                }
+                if (po.Label == "Ichi" && po.SymbolName == SymbolName && po.Pips >= TPinPips * 0.5 && po.TradeType == TradeType.Sell && po.StopLoss > po.EntryPrice)
+                {
+
+                    po.ModifyStopLossPips(po.EntryPrice - (1 / Symbol.PipSize));
+
+                }
+
+            }
+        }
+
+    }
+}

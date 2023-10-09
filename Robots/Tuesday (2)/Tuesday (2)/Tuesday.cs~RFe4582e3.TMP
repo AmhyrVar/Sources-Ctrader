@@ -1,0 +1,147 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Tuesday : Robot
+    {
+        [Parameter(DefaultValue = 10.0)]
+        public double AwayPips { get; set; }
+
+
+        public bool State = false;
+
+        public double Highstuff;
+        public double Lowstuff;
+
+        public int Counter = 0;
+
+        //NY Close in UTC = 10pm
+
+        protected override void OnStart()
+        {
+            PendingOrders.Filled += PendingOrders_Filled;
+            Positions.Closed += Positions_Closed;
+        }
+
+        private void Positions_Closed(PositionClosedEventArgs obj)
+        {
+            if (obj.Reason == PositionCloseReason.StopLoss && obj.Position.Pips < 0)
+            {
+                Counter++;
+                Print("Counter is " + Counter);
+            }
+        }
+        private void PendingOrders_Filled(PendingOrderFilledEventArgs obj)
+        {
+            Print(string.Format("PendingOrders.Filled event received. (Order #{0} filled. Position is #{1})", obj.PendingOrder.Id, obj.Position.Id));
+            foreach (var pending in PendingOrders)
+            {
+                if (pending.Label == "GJ")
+                {
+                    CancelPendingOrder(pending);
+                }
+            }
+        }
+        protected override void OnBar()
+        {
+
+            if (Server.Time.DayOfWeek == DayOfWeek.Friday && Server.Time.Hour >= 22 && Counter != 0)
+            {
+                Print("Friday Node");
+
+                foreach (var pending in PendingOrders)
+                {
+                    if (pending.Label == "GJ")
+                    {
+                        Print("Cancelling pending " + pending);
+                        CancelPendingOrder(pending);
+                    }
+                }
+
+                foreach (var po in Positions)
+                {
+                    if (po.Label == "GJ")
+                    {
+                        Print("Closing position " + po);
+                        ClosePosition(po);
+                    }
+                }
+
+
+
+                Counter = 0;
+            }
+
+
+            if (Counter == 2)
+            {
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+
+                Print("Highestpips++ " + highestpips);
+                Print("Lowestpips++ " + lowestpips);
+                Print("Delta pips++ " + delta);
+
+                var SL = delta * 0.25;
+                var TP = delta * 0.5;
+
+                PlaceStopLimitOrder(TradeType.Buy, SymbolName, 1000, highestpips, 5, "GJ", SL, TP);
+                PlaceStopLimitOrder(TradeType.Sell, SymbolName, 1000, lowestpips, 5, "GJ", SL, TP);
+                Print("Highest++ " + Highstuff);
+                Print("Lowest++ " + Lowstuff);
+
+                Counter++;
+            }
+
+
+            if (Counter == 0 && Server.Time.DayOfWeek == DayOfWeek.Wednesday && !State)
+            {
+                Highstuff = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > Highstuff)
+                        Highstuff = Bars.HighPrices.Last(i);
+                }
+
+                Lowstuff = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < Lowstuff)
+                        Lowstuff = Bars.LowPrices.Last(i);
+                }
+
+
+
+                var highestpips = Highstuff + (AwayPips * Symbol.PipSize);
+                var lowestpips = Lowstuff - (AwayPips * Symbol.PipSize);
+                var delta = (Highstuff - Lowstuff) / Symbol.PipSize;
+
+
+                Print("Highestpips " + highestpips);
+                Print("Lowestpips " + lowestpips);
+                Print("Delta pips " + delta);
+
+                var SL = delta * 0.25;
+                var TP = delta * 0.5;
+
+                PlaceStopLimitOrder(TradeType.Buy, SymbolName, 1000, highestpips, 5, "GJ", SL, TP);
+                PlaceStopLimitOrder(TradeType.Sell, SymbolName, 1000, lowestpips, 5, "GJ", SL, TP);
+                Print("Highest " + Highstuff);
+                Print("Lowest " + Lowstuff);
+
+                State = true;
+                Counter = 1;
+            }
+        }
+
+
+    }
+}

@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\bin\Release\net6.0\addb.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\bin\Release\net6.0\addb.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\bin\Release\net6.0\addb.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\refint\addb.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\addb.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Release\net6.0\ref\addb.dll

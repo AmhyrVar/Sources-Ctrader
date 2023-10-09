@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LRSI EHLER v5", "LRSI EHLER v5\LRSI EHLER v5.csproj", "{1F2A04DB-20A7-447B-9193-6AA2011FA69D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ehlers Smoothed Adaptive Momentum", "..\..\Indicators\Ehlers Smoothed Adaptive Momentum\Ehlers Smoothed Adaptive Momentum\Ehlers Smoothed Adaptive Momentum.csproj", "{F589328D-EB2B-4A9D-8A2A-167CF3CFF406}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laguerre_RSI", "..\..\Indicators\Laguerre_RSI\Laguerre_RSI\Laguerre_RSI.csproj", "{DA201E79-0D9D-4583-9CB6-8C712566ECD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATR Stops", "..\..\Indicators\ATR Stops\ATR Stops\ATR Stops.csproj", "{C136D53A-8856-4A0C-9FB0-09661F8B65BC}"
+EndProject

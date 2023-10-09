@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "crazysummers/1.0.0": {
+        "dependencies": {
+          "cTrader.Automate": "1.0.7"
+        },
+        "runtime": {
+          "crazysummers.dll": {}
+        }
+      },
+      "cTrader.Automate/1.0.7": {
+        "runtime": {
+          "lib/net6.0/cAlgo.API.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "crazysummers/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "cTrader.Automate/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bRD7DBUrhmknirs6lhV3+e3+t1He+Ca51Tf/gRrImC5EmKXLm8/iCcErhfv9eVz4gRfR6WNZIHqGMlwxkenmng==",
+      "path": "ctrader.automate/1.0.7",
+      "hashPath": "ctrader.automate.1.0.7.nupkg.sha512"
+    }
+  }
+}

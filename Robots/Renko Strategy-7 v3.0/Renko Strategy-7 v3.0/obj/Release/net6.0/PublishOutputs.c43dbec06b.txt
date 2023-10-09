@@ -1,0 +1,6 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\Renko Strategy-7 v3.0.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\Renko Strategy-7 v3.0.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\Renko Strategy-7 v3.0.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\cAlgo.API.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\Newtonsoft.Json.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Renko Strategy-7 v3.0\Renko Strategy-7 v3.0\bin\Release\net6.0\publish\Telegram.Bot.dll

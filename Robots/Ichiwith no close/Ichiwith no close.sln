@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ichiwith no close", "Ichiwith no close\Ichiwith no close.csproj", "{18F05F5D-4490-4459-914D-77CA7286249A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18F05F5D-4490-4459-914D-77CA7286249A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F05F5D-4490-4459-914D-77CA7286249A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F05F5D-4490-4459-914D-77CA7286249A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F05F5D-4490-4459-914D-77CA7286249A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADXR", "..\..\Indicators\ADXR\ADXR\ADXR.csproj", "{3C1999FB-688A-4AD9-8543-6A1CEB365946}"
+EndProject

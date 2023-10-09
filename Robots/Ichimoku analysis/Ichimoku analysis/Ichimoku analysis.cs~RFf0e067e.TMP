@@ -1,0 +1,149 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Ichimokuanalysis : Robot
+    {
+
+
+        [Parameter(DefaultValue = 9)]
+        public int periodFast { get; set; }
+
+        [Parameter(DefaultValue = 26)]
+        public int periodMedium { get; set; }
+
+        [Parameter(DefaultValue = 52)]
+        public int periodSlow { get; set; }
+
+
+        [Parameter("Lot size", DefaultValue = 0.01)]
+        public double Volume { get; set; }
+
+        [Parameter("tpmult", DefaultValue = 5)]
+        public double mult { get; set; }
+
+
+        [Parameter("Risk %", DefaultValue = 5)]
+        public double RiskP { get; set; }
+
+
+
+
+
+        IchimokuKinkoHyo ichimoku;
+
+
+        protected override void OnStart()
+        {
+            ichimoku = Indicators.IchimokuKinkoHyo(periodFast, periodMedium, periodSlow);
+
+
+
+        }
+        protected int ChikouUp()
+        {
+
+            if (ichimoku.ChikouSpan.LastValue > ichimoku.SenkouSpanA.Last(52) && ichimoku.ChikouSpan.LastValue > ichimoku.SenkouSpanB.Last(52) && ichimoku.ChikouSpan.LastValue > ichimoku.KijunSen.Last(26) && ichimoku.ChikouSpan.LastValue > ichimoku.TenkanSen.Last(26) && ichimoku.ChikouSpan.LastValue > Bars.ClosePrices.Last(26) && ichimoku.ChikouSpan.LastValue > Bars.OpenPrices.Last(26))
+            {
+                return 1;
+            }
+
+            if (ichimoku.ChikouSpan.LastValue < ichimoku.SenkouSpanA.Last(52) && ichimoku.ChikouSpan.LastValue < ichimoku.SenkouSpanB.Last(52) && ichimoku.ChikouSpan.LastValue < ichimoku.KijunSen.Last(26) && ichimoku.ChikouSpan.LastValue < ichimoku.TenkanSen.Last(26) && ichimoku.ChikouSpan.LastValue < Bars.ClosePrices.Last(26) && ichimoku.ChikouSpan.LastValue < Bars.OpenPrices.Last(26))
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+        }
+        protected int PriceUp()
+        {
+            if (Bars.ClosePrices.Last(1) > ichimoku.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) > ichimoku.SenkouSpanB.Last(26) && Bars.ClosePrices.Last(1) > ichimoku.TenkanSen.Last(1) && Bars.ClosePrices.Last(1) > ichimoku.KijunSen.Last(1))
+            {
+                return 1;
+            }
+            if (Bars.ClosePrices.Last(1) < ichimoku.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) < ichimoku.SenkouSpanB.Last(26) && Bars.ClosePrices.Last(1) < ichimoku.TenkanSen.Last(1) && Bars.ClosePrices.Last(1) < ichimoku.KijunSen.Last(1))
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+
+        }
+
+        protected double GetVolume(double SL)
+        {
+
+
+
+
+
+            var x = 1.0;
+
+
+
+            var RawRisk = Account.Balance * RiskP / 100;
+            x = Math.Round((RawRisk) / (SL * Symbol.PipValue * Symbol.VolumeInUnitsMin));
+
+
+            if (Symbol.VolumeInUnitsMin > 1)
+            {
+                return Convert.ToInt32(x * Symbol.VolumeInUnitsMin);
+            }
+            else
+            {
+                return (x * Symbol.VolumeInUnitsMin);
+            }
+
+
+
+
+
+
+        }
+
+        protected double GetSL()
+        {
+            var SL = Math.Abs(Bars.ClosePrices.Last(1) - ichimoku.KijunSen.Last(1)) / Symbol.PipSize;
+            Print("SL is " + Math.Round(SL, Symbol.Digits));
+            if (SL < 1)
+            {
+                return 1;
+            }
+            return Math.Round(SL, Symbol.Digits);
+        }
+
+        protected double GetTP(double SL)
+        {
+            return mult * SL;
+        }
+        protected override void OnBar()
+        {
+            var Lpos = Positions.FindAll("Ichi", SymbolName, TradeType.Buy);
+            var Spos = Positions.FindAll("Ichi", SymbolName, TradeType.Sell);
+            //Buy
+            if (ChikouUp() == 1 && PriceUp() == 1 && Lpos.Length == 0)
+            {
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(GetSL()), "Ichi", GetSL(), GetTP(GetSL()));
+            }
+            if (ChikouUp() == 2 && PriceUp() == 2 && Spos.Length == 0)
+            {
+                ExecuteMarketOrder(TradeType.Sell, SymbolName, GetVolume(GetSL()), "Ichi", GetSL(), GetTP(GetSL()));
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

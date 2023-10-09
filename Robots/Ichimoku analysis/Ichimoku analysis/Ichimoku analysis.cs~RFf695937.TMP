@@ -1,0 +1,231 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using CsvHelper;
+
+using System.Collections.Generic;
+using System.IO;
+
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class Ichimokuanalysis : Robot
+    {
+
+
+        [Parameter(DefaultValue = 9)]
+        public int periodFast { get; set; }
+
+        [Parameter(DefaultValue = 26)]
+        public int periodMedium { get; set; }
+
+        [Parameter(DefaultValue = 52)]
+        public int periodSlow { get; set; }
+
+
+        [Parameter("Lot size", DefaultValue = 0.01)]
+        public double Volume { get; set; }
+
+        [Parameter("tpmult", DefaultValue = 5)]
+        public double mult { get; set; }
+
+
+        [Parameter("Risk %", DefaultValue = 5)]
+        public double RiskP { get; set; }
+
+        public double AccStartBal;
+
+        public Position GlobalID;
+
+        IchimokuKinkoHyo ichimoku;
+
+
+        protected override void OnStart()
+        {
+
+
+            ichimoku = Indicators.IchimokuKinkoHyo(periodFast, periodMedium, periodSlow);
+
+            AccStartBal = Account.Balance;
+
+
+        }
+        public class OpenTrade
+        {
+            public string id { get; set; }
+            //tradeID type ?
+            public double price { get; set; }
+            //closeprice
+            public double M15T { get; set; }
+            public double M15K { get; set; }
+            public double M15SSA { get; set; }
+            public double M15SSB { get; set; }
+
+            public double M15Chikou { get; set; }
+            public double M15CPrice { get; set; }
+            public double M15CKijun { get; set; }
+            public double M15CTenkan { get; set; }
+            public double M15CSSA { get; set; }
+            public double M15CSSB { get; set; }
+
+
+        }
+
+        public void WriteToCSVFile()
+        {
+
+
+            List<OpenTrade> records = new List<OpenTrade>();
+
+
+
+            OpenTrade record = new OpenTrade 
+            {
+                id = GlobalID.Id.ToString(),
+                price = Bars.ClosePrices.Last(1),
+                M15T = ichimoku.TenkanSen.Last(1),
+                M15K = ichimoku.KijunSen.Last(1),
+                M15SSA = ichimoku.SenkouSpanA.Last(26),
+                M15SSB = ichimoku.SenkouSpanB.Last(26),
+
+                M15Chikou = ichimoku.ChikouSpan.Last(1),
+                M15CPrice = Bars.ClosePrices.Last(26),
+                M15CKijun = ichimoku.KijunSen.Last(26),
+                M15CTenkan = ichimoku.TenkanSen.Last(26),
+                M15CSSA = ichimoku.SenkouSpanA.Last(52),
+                M15CSSB = ichimoku.SenkouSpanB.Last(52)
+
+
+            };
+
+            records.Add(record);
+
+
+            using (var writer = new StreamWriter("F:\\\\stuff.csv"))
+            {
+                using (var csv = new CsvWriter(writer))
+                {
+                    csv.WriteRecords(records);
+                }
+            }
+
+
+            Print("Done Writing To CSV File");
+            Print(records.Count);
+        }
+
+        protected int ChikouUp()
+        {
+
+            if (ichimoku.ChikouSpan.LastValue > ichimoku.SenkouSpanA.Last(52) && ichimoku.ChikouSpan.LastValue > ichimoku.SenkouSpanB.Last(52) && ichimoku.ChikouSpan.LastValue > ichimoku.KijunSen.Last(26) && ichimoku.ChikouSpan.LastValue > ichimoku.TenkanSen.Last(26) && ichimoku.ChikouSpan.LastValue > Bars.ClosePrices.Last(26) && ichimoku.ChikouSpan.LastValue > Bars.OpenPrices.Last(26))
+            {
+                return 1;
+            }
+
+            if (ichimoku.ChikouSpan.LastValue < ichimoku.SenkouSpanA.Last(52) && ichimoku.ChikouSpan.LastValue < ichimoku.SenkouSpanB.Last(52) && ichimoku.ChikouSpan.LastValue < ichimoku.KijunSen.Last(26) && ichimoku.ChikouSpan.LastValue < ichimoku.TenkanSen.Last(26) && ichimoku.ChikouSpan.LastValue < Bars.ClosePrices.Last(26) && ichimoku.ChikouSpan.LastValue < Bars.OpenPrices.Last(26))
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+        }
+        protected int PriceUp()
+        {
+            if (Bars.ClosePrices.Last(1) > ichimoku.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) > ichimoku.SenkouSpanB.Last(26) && Bars.ClosePrices.Last(1) > ichimoku.TenkanSen.Last(1) && Bars.ClosePrices.Last(1) > ichimoku.KijunSen.Last(1))
+            {
+                return 1;
+            }
+            if (Bars.ClosePrices.Last(1) < ichimoku.SenkouSpanA.Last(26) && Bars.ClosePrices.Last(1) < ichimoku.SenkouSpanB.Last(26) && Bars.ClosePrices.Last(1) < ichimoku.TenkanSen.Last(1) && Bars.ClosePrices.Last(1) < ichimoku.KijunSen.Last(1))
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+
+        }
+
+        protected double GetVolume(double SL)
+        {
+
+
+
+
+
+            var x = 1.0;
+
+
+
+            var RawRisk = Account.Balance * RiskP / 100;
+            x = Math.Round((RawRisk) / (SL * Symbol.PipValue * Symbol.VolumeInUnitsMin));
+
+
+            if (Symbol.VolumeInUnitsMin > 1)
+            {
+                return Convert.ToInt32(x * Symbol.VolumeInUnitsMin);
+            }
+            else
+            {
+                return (x * Symbol.VolumeInUnitsMin);
+            }
+
+
+
+
+
+
+
+        }
+
+        protected double GetSL()
+        {
+            var SL = Math.Abs(Bars.ClosePrices.Last(1) - ichimoku.KijunSen.Last(1)) / Symbol.PipSize;
+            Print("SL is " + Math.Round(SL, Symbol.Digits));
+            if (SL < 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return Math.Round(SL, Symbol.Digits);
+            }
+
+        }
+
+        protected double GetTP(double SL)
+        {
+            return mult * SL;
+        }
+        protected override void OnBar()
+        {
+            var Lpos = Positions.FindAll("Ichi", SymbolName, TradeType.Buy);
+            var Spos = Positions.FindAll("Ichi", SymbolName, TradeType.Sell);
+            //Buy
+            if (ChikouUp() == 1 && PriceUp() == 1 && Lpos.Length == 0)
+            {
+                var t = ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(GetSL()), "Ichi", GetSL(), GetTP(GetSL()));
+                GlobalID = t.Position;
+                WriteToCSVFile();
+            }
+            if (ChikouUp() == 2 && PriceUp() == 2 && Spos.Length == 0)
+            {
+                var t = ExecuteMarketOrder(TradeType.Sell, SymbolName, GetVolume(GetSL()), "Ichi", GetSL(), GetTP(GetSL()));
+                GlobalID = t.Position;
+                WriteToCSVFile();
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}
+

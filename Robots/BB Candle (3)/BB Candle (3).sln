@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB Candle (3)", "BB Candle (3)\BB Candle (3).csproj", "{F8C44E08-FC10-4AE4-A3F0-4A54F112ACD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Check", "..\..\Indicators\Check\Check\Check.csproj", "{9461FDC9-086B-4A0F-AF50-F7DBDCF829CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8C44E08-FC10-4AE4-A3F0-4A54F112ACD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C44E08-FC10-4AE4-A3F0-4A54F112ACD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C44E08-FC10-4AE4-A3F0-4A54F112ACD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C44E08-FC10-4AE4-A3F0-4A54F112ACD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9461FDC9-086B-4A0F-AF50-F7DBDCF829CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9461FDC9-086B-4A0F-AF50-F7DBDCF829CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9461FDC9-086B-4A0F-AF50-F7DBDCF829CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9461FDC9-086B-4A0F-AF50-F7DBDCF829CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AEF1C90-6F78-49A0-9611-5A3EC6501729}
+	EndGlobalSection
+EndGlobal

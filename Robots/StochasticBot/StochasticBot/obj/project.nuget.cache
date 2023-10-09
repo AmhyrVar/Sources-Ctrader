@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "euZQQO+KgizoJDaYrTUBRtcSrjZMnXJMQ/snjeYSYeZBpvfJcaOKlf6Y3g6igJ2t3g37PpVzg0vZS58Aplrfwg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\StochasticBot\\StochasticBot\\StochasticBot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.2\\ctrader.automate.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

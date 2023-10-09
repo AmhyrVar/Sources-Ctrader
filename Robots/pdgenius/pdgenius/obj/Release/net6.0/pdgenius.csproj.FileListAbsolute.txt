@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\pdgenius.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\pdgenius.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\pdgenius.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\refint\pdgenius.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\pdgenius.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\obj\Release\net6.0\ref\pdgenius.dll

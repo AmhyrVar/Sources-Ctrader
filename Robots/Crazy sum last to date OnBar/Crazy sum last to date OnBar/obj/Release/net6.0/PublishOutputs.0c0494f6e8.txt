@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date OnBar\Crazy sum last to date OnBar\bin\Release\net6.0\publish\Crazy sum last to date OnBar.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date OnBar\Crazy sum last to date OnBar\bin\Release\net6.0\publish\Crazy sum last to date OnBar.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date OnBar\Crazy sum last to date OnBar\bin\Release\net6.0\publish\Crazy sum last to date OnBar.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date OnBar\Crazy sum last to date OnBar\bin\Release\net6.0\publish\cAlgo.API.dll

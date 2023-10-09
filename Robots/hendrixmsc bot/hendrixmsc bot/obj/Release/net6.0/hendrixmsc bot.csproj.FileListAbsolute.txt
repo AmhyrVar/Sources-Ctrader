@@ -1,0 +1,17 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\hendrixmsc bot.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\hendrixmsc bot.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\hendrixmsc bot.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\RSIOMA.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\SMI.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\RSIOMA.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\bin\Release\net6.0\SMI.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\refint\hendrixmsc bot.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\hendrixmsc bot.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot\hendrixmsc bot\obj\Release\net6.0\ref\hendrixmsc bot.dll

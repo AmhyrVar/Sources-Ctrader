@@ -1,0 +1,338 @@
+﻿using System.Net;
+using System.Text;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using System.Security.Cryptography.X509Certificates;
+
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class ADXDEMAscreener : Robot
+    {
+
+        //keep        
+
+
+        [Parameter("Fast EMA Periods", DefaultValue = 50)]
+        public int EMA1P { get; set; }
+        [Parameter("Slow EMA Periods", DefaultValue = 100)]
+        public int EMA2P { get; set; }
+        [Parameter("ADX Periods", DefaultValue = 14)]
+        public int ADXPeriods { get; set; }
+
+        [Parameter("Volume", DefaultValue = 1000)]
+        public int volume { get; set; }
+
+        [Parameter("Stop loss in pips", DefaultValue = 100)]
+        public int SL_Pips { get; set; }
+
+        [Parameter("SL in pips trigger", DefaultValue = true)]
+        public bool SL_Pips_Trigger { get; set; }
+
+        [Parameter("SL CrossOver trigger", DefaultValue = true)]
+        public bool SL_CrossOver_Trigger { get; set; }
+        [Parameter("TP in pips", DefaultValue = 100)]
+        public int TP_Pips { get; set; }
+
+        [Parameter("TP in pips trigger", DefaultValue = true)]
+        public bool TP_Pips_Trigger { get; set; }
+
+        [Parameter("TP CrossOver trigger", DefaultValue = true)]
+        public bool TP_CrossOver_Trigger { get; set; }
+
+        [Parameter("Enter Position on signal", DefaultValue = true)]
+        public bool EnterPosition { get; set; }
+
+        [Parameter("Telegram Notification", DefaultValue = true)]
+        public bool TelegramNotification { get; set; }
+
+
+
+
+
+
+        private ExponentialMovingAverage FastEMA;
+        private ExponentialMovingAverage SlowEMA;
+        private DirectionalMovementSystem ADX;
+
+        [Parameter("Telegram Bot Key", DefaultValue = "1282406359:AAGzi9N3s2xSdswfHdn4gH1qnzv6niPsB8k")]
+        public string BOT_API_KEY { get; set; }
+
+        [Parameter("Bot TimeFrame", DefaultValue = "")]
+        public string BotTimeFrame { get; set; }
+
+        [Parameter("ChannelId", DefaultValue = "897988131")]
+        public string ChannelId { get; set; }
+
+
+        List<string> _telegramChannels = new List<string>();
+
+
+        protected override void OnStart()
+        {
+            //keep
+
+
+
+
+            FastEMA = Indicators.ExponentialMovingAverage(Bars.ClosePrices, EMA1P);
+            SlowEMA = Indicators.ExponentialMovingAverage(Bars.ClosePrices, EMA2P);
+            ADX = Indicators.DirectionalMovementSystem(Bars, ADXPeriods);
+
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            // If you didn't set a channel, then find channels by looking at the updates
+            if (string.IsNullOrEmpty(ChannelId))
+            {
+                _telegramChannels = ParseChannels(GetBotUpdates());
+            }
+            else
+            {
+                _telegramChannels.Add(ChannelId);
+            }
+            SendMessageToAllChannels("The bot is running on the " + BotTimeFrame + " timeframe");
+
+
+
+
+        }
+
+
+
+        protected void LongScenario()
+        {
+            if (TelegramNotification)
+            {
+                SendMessageToAllChannels("ADX 2EMAs Bot is long on " + SymbolName + ", in " + Chart.TimeFrame + " timeframe");
+            }
+            if (EnterPosition)
+            {
+
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, volume, "ADXEMA");
+
+            }
+        }
+
+        protected void ShortScenario()
+        {
+            if (TelegramNotification)
+            {
+                SendMessageToAllChannels("ADX 2EMAs Bot is short on " + SymbolName + ", in " + Chart.TimeFrame + " timeframe");
+            }
+            if (EnterPosition)
+            {
+                ExecuteMarketOrder(TradeType.Sell, SymbolName, volume, "ADXEMA");
+            }
+
+        }
+
+        private List<string> ParseChannels(string jsonData)
+        {
+            var matches = new Regex("\"id\"\\:(\\d+)").Matches(jsonData);
+            List<string> channels = new List<string>();
+            if (matches.Count > 0)
+            {
+                foreach (Match m in matches)
+                {
+                    if (!channels.Contains(m.Groups[1].Value))
+                    {
+                        channels.Add(m.Groups[1].Value);
+                    }
+                }
+            }
+            foreach (var v in channels)
+            {
+                Print("DEBUG: Found Channel {0} ", v);
+            }
+            return channels;
+        }
+
+        protected int updateOffset = -1;
+        private string GetBotUpdates()
+        {
+            Dictionary<string, string> values = new Dictionary<string, string>();
+            if (updateOffset > -1)
+            {
+                values.Add("offset", (updateOffset++).ToString());
+            }
+
+            var jsonData = MakeTelegramRequest(BOT_API_KEY, "getUpdates", values);
+
+            var matches = new Regex("\"message_id\"\\:(\\d+)").Matches(jsonData);
+            if (matches.Count > 0)
+            {
+                foreach (Match m in matches)
+                {
+                    int msg_id = -1;
+                    int.TryParse(m.Groups[1].Value, out msg_id);
+                    if (msg_id > updateOffset)
+                    {
+                        updateOffset = msg_id;
+                    }
+                }
+            }
+            return jsonData;
+        }
+
+        private void SendMessageToAllChannels(string message)
+        {
+            foreach (var c in _telegramChannels)
+            {
+                SendMessageToChannel(c, message);
+            }
+        }
+
+        private string SendMessageToChannel(string chat_id, string message)
+        {
+            var values = new Dictionary<string, string> 
+            {
+                {
+                    "chat_id",
+                    chat_id
+                },
+                {
+                    "text",
+                    message
+                }
+            };
+
+            return MakeTelegramRequest(BOT_API_KEY, "sendMessage", values);
+        }
+
+        private string MakeTelegramRequest(string api_key, string method, Dictionary<string, string> values)
+        {
+            string TELEGRAM_CALL_URI = string.Format("https://api.telegram.org/bot{0}/{1}", api_key, method);
+
+            var request = WebRequest.Create(TELEGRAM_CALL_URI);
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Method = "POST";
+
+            StringBuilder data = new StringBuilder();
+            foreach (var d in values)
+            {
+                data.Append(string.Format("{0}={1}&", d.Key, d.Value));
+            }
+            byte[] byteArray = Encoding.UTF8.GetBytes(data.ToString());
+            request.ContentLength = byteArray.Length;
+
+            Stream dataStream = request.GetRequestStream();
+
+            dataStream.Write(byteArray, 0, byteArray.Length);
+
+            dataStream.Close();
+
+            WebResponse response = request.GetResponse();
+
+            Print("DEBUG {0}", ((HttpWebResponse)response).StatusDescription);
+
+            dataStream = response.GetResponseStream();
+
+            StreamReader reader = new StreamReader(dataStream);
+
+            string outStr = reader.ReadToEnd();
+
+            Print("DEBUG {0}", outStr);
+
+            reader.Close();
+
+            return outStr;
+        }
+
+
+        protected bool IsPosOpen()
+        {
+
+
+            //var MyPositions = Positions.Count(p => p.Label == "ADXEMA");
+            var MyPositions = Positions.FindAll("myLabel", SymbolName);
+            //var shortPositionsCount = Positions.Count(x => x.TradeType == TradeType.Sell && x.Label == InstanceName);
+
+            if (MyPositions.Length > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        protected override void OnTick()
+        {
+            if (TP_Pips_Trigger)
+            {
+                foreach (var position in Positions)
+                {
+                    if (position.Label == "ADXEMA" && position.Pips >= TP_Pips)
+                    {
+                        ClosePosition(position);
+                    }
+                }
+            }
+            if (SL_Pips_Trigger)
+            {
+                foreach (var position in Positions)
+                {
+                    if (position.Label == "ADXEMA" && -position.Pips >= SL_Pips)
+                    {
+                        ClosePosition(position);
+                    }
+                }
+            }
+
+            if (SL_CrossOver_Trigger)
+            {
+                foreach (var position in Positions)
+                {
+                    if (position.Label == "ADXEMA" && position.Pips < 0)
+                    {
+                        if ((FastEMA.Result.HasCrossedAbove(SlowEMA.Result, 1) && position.TradeType == TradeType.Sell) || (FastEMA.Result.HasCrossedBelow(SlowEMA.Result, 1) && position.TradeType == TradeType.Buy))
+                        {
+                            ClosePosition(position);
+                        }
+                    }
+                }
+            }
+
+            if (TP_CrossOver_Trigger)
+            {
+                foreach (var position in Positions)
+                {
+                    if (position.Label == "ADXEMA" && position.Pips > 0)
+                    {
+                        if ((FastEMA.Result.HasCrossedAbove(SlowEMA.Result, 1) && position.TradeType == TradeType.Sell) || (FastEMA.Result.HasCrossedBelow(SlowEMA.Result, 1) && position.TradeType == TradeType.Buy))
+                        {
+                            ClosePosition(position);
+                        }
+                    }
+                }
+            }
+            /* BUY If the Fast Exponential Moving Average crosses from below and close above the Slow Exponential Moving Average, 
+            open LONG position if the cross is confirmed at the candle closure and if ADX line in the Direction Movement indicator is above 20.*/
+            if (FastEMA.Result.HasCrossedAbove(SlowEMA.Result, 1) && ADX.ADX.LastValue > 20 && !IsPosOpen())
+            {
+                LongScenario();
+            }
+            if (FastEMA.Result.HasCrossedBelow(SlowEMA.Result, 1) && ADX.ADX.LastValue > 20 && !IsPosOpen())
+            {
+                ShortScenario();
+            }
+
+
+
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

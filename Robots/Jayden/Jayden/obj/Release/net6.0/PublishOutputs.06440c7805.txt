@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\publish\Jayden.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\publish\Jayden.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\publish\Jayden.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\publish\cAlgo.API.dll

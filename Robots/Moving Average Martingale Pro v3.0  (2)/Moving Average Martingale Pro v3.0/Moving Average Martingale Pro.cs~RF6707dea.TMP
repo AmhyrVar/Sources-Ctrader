@@ -1,0 +1,142 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class MovingAverageMartingalePro : Robot
+    {
+        [Parameter("TEMA Period", DefaultValue = 50)]
+        public int Tema_Period { get; set; }
+
+        [Parameter("DEMA Period", DefaultValue = 50)]
+        public int Dema_Period { get; set; }
+
+        [Parameter("Bars after crossing", DefaultValue = 1)]
+        public int Bars_cross { get; set; }
+
+        [Parameter("Maximum orders", DefaultValue = 5)]
+        public int MaxOrders { get; set; }
+
+
+        [Parameter("SL", DefaultValue = 50)]
+        public double SL { get; set; }
+
+        [Parameter("TP", DefaultValue = 25)]
+        public double TP { get; set; }
+
+        [Parameter("Hour to start trading", DefaultValue = 8)]
+        public int Hour_Start { get; set; }
+        [Parameter("Hour to stop trading", DefaultValue = 18)]
+        public int Hour_Stop { get; set; }
+
+        [Parameter("martingale multiplier", DefaultValue = 1.5)]
+        public int Martingale_Multiplier { get; set; }
+
+        private int Martingale_Status = 0;
+
+        [Parameter("Balance % position", DefaultValue = 2)]
+        public double Balance_per { get; set; }
+
+        [Parameter("Simulated balance", DefaultValue = 200)]
+        public double Sim_Bal { get; set; }
+
+        [Parameter("Break-even pips", DefaultValue = 100)]
+        public double BEpips { get; set; }
+        [Parameter("Break-even pips to add", DefaultValue = 100)]
+        public double BEAddPips { get; set; }
+
+        
+
+        Tema _TEMA;
+        DEMA _DEMA;
+
+        protected override void OnStart()
+        {
+            _TEMA = Indicators.GetIndicator<Tema>(Tema_Period);
+            _DEMA = Indicators.GetIndicator<DEMA>(Dema_Period);
+            Positions.Closed += PositionsOnClosed;
+        }
+        private void PositionsOnClosed(PositionClosedEventArgs args)
+        {
+            switch (args.Reason)
+            {
+                case PositionCloseReason.StopLoss:
+                    Martingale_Status++;
+                    break;
+                case PositionCloseReason.TakeProfit:
+                    Martingale_Multiplier = 0;
+                    break;
+
+            }
+           
+        }
+            private bool TimeCheck()
+        {
+
+            if (Server.Time.Hour >= Hour_Start && Server.Time.Hour < Hour_Stop)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        protected int GetVolume(double SL)
+        {
+
+           
+            var x = Math.Round((Sim_Bal * Balance_per) / (100 * SL * Symbol.PipValue * 1000));
+
+           if (Martingale_Status == 0)
+            { return Convert.ToInt32(x * 1000); }
+            else
+            {
+                return Convert.ToInt32(x* Martingale_Multiplier* Martingale_Status * 1000);
+            }
+
+        }
+
+        protected override void OnBar()
+        {
+            var Opened_Orders = Positions.FindAll("TDEMA", SymbolName);
+
+            if (_TEMA.Result.HasCrossedAbove(_DEMA.dema, Bars_cross) && Opened_Orders.Length < MaxOrders && TimeCheck())
+            {
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(SL), "TDEMA", SL, TP);
+            }
+            if (_TEMA.Result.HasCrossedBelow(_DEMA.dema, Bars_cross) && Opened_Orders.Length < MaxOrders && TimeCheck())
+            {
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(SL), "TDEMA", SL, TP);
+            }
+        }
+
+        protected override void OnTick ()
+        {
+            var Opened_Orders_t = Positions.FindAll("TDEMA", SymbolName);
+            double popips = 0;
+            foreach (var po in Opened_Orders_t)
+            {
+                popips = popips + po.Pips ;
+            }
+            if (popips >= BEpips)
+            {
+                foreach (var po in Opened_Orders_t)
+                {
+                    //Break-even
+                    po.ModifyStopLossPips(po.EntryPrice + (BEAddPips / Symbol.PipSize));
+
+                    //Modify volume
+
+                }
+            }
+        }
+
+
+    }
+}

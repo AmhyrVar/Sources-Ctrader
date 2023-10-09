@@ -1,0 +1,40 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class NewcBot : Robot
+    {
+        [Parameter(DefaultValue = 0.01)]
+        public double volume { get; set; }
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+
+            /*Open a buy and sell position at the same time once a 1 - minute candle closes.
+            For buy position: put the TP at 70 pips and SL at -50 pips.
+            For sell position: put the TP at 70 pips and SL at -50 pips.
+
+            I would like to have a code once done so that I can change the number of pips for TP and SL
+            Add in the code that it shouldn't open a position the first 10 minutes when market opens.*/
+        }
+
+        protected override void OnBar()
+        {
+            // Put your core logic here
+            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Buy", 50, 70);
+            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Buy", 50, 70);
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

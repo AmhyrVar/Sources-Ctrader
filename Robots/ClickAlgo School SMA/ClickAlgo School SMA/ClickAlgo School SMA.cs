@@ -1,0 +1,307 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+
+/*
+ *  POPULAR SIMPLE MOVING AVERAGES
+ *
+ *  The simple moving average (SMA) is the most basic of the moving averages used for trading. 
+ *  The simple moving average formula is calculated by taking the average closing price of a stock over the last "x" periods.
+ *  
+ *  5 - SMA  - For the hyper trader.  This short of an SMA will constantly give you signals.  The best use of a 5-SMA is as a trade trigger in conjunction with a longer SMA period.
+ *  10 - SMA - popular with the short-term traders.  Great swing traders and day traders.
+ *  20 - SMA - the last stop on the bus for short-term traders.  Beyond 20-SMA you are basically looking at primary trends.
+ *  50 - SMA - use the trader to gauge mid-term trends.
+ *  200 -SMA - welcome to the world of long-term trend followers.  Most investors will look for a cross above or below this average to represent if the stock is in a bullish or bearish trend.
+ *  
+ * Modifications
+ * =============
+ * 02.12.2017 - Added trailing stop - phayes 
+ * 03.12.2017 - Added a Break-even - phayes
+ */
+
+namespace cAlgo
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class ClickAlgoSchoolSMA : Robot
+    {
+        #region User defined parameters
+
+        [Parameter("Instance Name", DefaultValue = "001")]
+        public string InstanceName { get; set; }
+
+        [Parameter("Lot Size", DefaultValue = 0.1)]
+        public double LotSize { get; set; }
+
+        [Parameter("Source SMA #1")]
+        public DataSeries SourceSma1 { get; set; }
+
+        [Parameter("Source SMA #2")]
+        public DataSeries SourceSma2 { get; set; }
+
+        [Parameter("Period SMA #1", DefaultValue = 5, MinValue = 1, MaxValue = 100)]
+        public int PeriodsSma1 { get; set; }
+
+        [Parameter("Period SMA #2", DefaultValue = 20, MinValue = 1, MaxValue = 100)]
+        public int PeriodsSma2 { get; set; }
+
+        [Parameter("Calculate OnBar", DefaultValue = false)]
+        public bool CalculateOnBar { get; set; }
+
+        [Parameter("Include Trailing Stop", DefaultValue = false)]
+        public bool IncludeTrailingStop { get; set; }
+
+        [Parameter("Trailing Stop Trigger (pips)", DefaultValue = 20)]
+        public int TrailingStopTrigger { get; set; }
+
+        [Parameter("Trailing Stop Step (pips)", DefaultValue = 10)]
+        public int TrailingStopStep { get; set; }
+
+        [Parameter("Include Break-Even", DefaultValue = false)]
+        public bool IncludeBreakEven { get; set; }
+
+        [Parameter("Break-Even Trigger (pips)", DefaultValue = 10, MinValue = 1)]
+        public int BreakEvenPips { get; set; }
+
+        [Parameter("Break-Even Extra (pips)", DefaultValue = 2, MinValue = 1)]
+        public int BreakEvenExtraPips { get; set; }
+
+        #endregion
+
+        #region Indicator declarations
+
+        private SimpleMovingAverage _sma1 { get; set; }
+        private SimpleMovingAverage _sma2 { get; set; }
+
+        #endregion
+
+        #region cTrader events
+
+        /// <summary>
+        /// This is called when the robot first starts, it is only called once.
+        /// </summary>
+        protected override void OnStart()
+        {
+            // construct the indicators
+            _sma1 = Indicators.SimpleMovingAverage(SourceSma1, PeriodsSma1);
+            _sma2 = Indicators.SimpleMovingAverage(SourceSma2, PeriodsSma2);
+        }
+
+        /// <summary>
+        /// This method is called every time the price changes for the symbol
+        /// </summary>
+        protected override void OnTick()
+        {
+            if (CalculateOnBar)
+            {
+                return;
+            }
+
+            ManagePositions();
+
+            if (IncludeTrailingStop)
+            {
+                SetTrailingStop();
+            }
+
+            if (IncludeBreakEven)
+            {
+                BreakEvenAdjustment();
+            }
+
+        }
+
+        /// <summary>
+        /// This method is called at every candle (bar) close, when it has formed
+        /// </summary>
+        protected override void OnBar()
+        {
+            if (!CalculateOnBar)
+            {
+                return;
+            }
+
+            ManagePositions();
+        }
+
+        /// <summary>
+        /// This method is called when your robot stops, can be used to clean-up memory resources.
+        /// </summary>
+        protected override void OnStop()
+        {
+            // unused
+        }
+
+        #endregion
+
+        #region Position management
+
+        private void ManagePositions()
+        {
+            if (_sma1.Result.LastValue > _sma2.Result.LastValue)
+            {
+                // if there is no buy position open, open one and close any sell position that is open
+                if (!IsPositionOpenByType(TradeType.Buy))
+                {
+                    OpenPosition(TradeType.Buy);
+                }
+
+                ClosePosition(TradeType.Sell);
+            }
+
+            // if a sell position is already open and signal is buy do nothing
+            if (_sma1.Result.LastValue < _sma2.Result.LastValue)
+            {
+                // if there is no sell position open, open one and close any buy position that is open
+                if (!IsPositionOpenByType(TradeType.Sell))
+                {
+                    OpenPosition(TradeType.Sell);
+                }
+
+                ClosePosition(TradeType.Buy);
+            }
+        }
+
+        /// <summary>
+        /// Opens a new long position
+        /// </summary>
+        /// <param name="type"></param>
+        private void OpenPosition(TradeType type)
+        {
+            // calculate volume from lot size.
+            long volume = Symbol.QuantityToVolume(LotSize);
+
+            // open a new position
+            ExecuteMarketOrder(type, this.Symbol, volume, InstanceName, null, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        private void ClosePosition(TradeType type)
+        {
+            var p = Positions.Find(InstanceName, this.Symbol, type);
+
+            if (p != null)
+            {
+                ClosePosition(p);
+            }
+        }
+
+        #endregion
+
+        #region Position Information
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private bool IsPositionOpenByType(TradeType type)
+        {
+            var p = Positions.FindAll(InstanceName, Symbol, type);
+
+            if (p.Count() >= 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Trailing Stop
+
+        /// <summary>
+        /// When the profit in pips is above or equal to Trigger the stop loss will start trailing the spot price.
+        /// TrailingStop defines the number of pips the Stop Loss trails the spot price by. 
+        /// If Trigger is 0 trailing will begin immediately. 
+        /// </summary>
+        private void SetTrailingStop()
+        {
+            var sellPositions = Positions.FindAll(InstanceName, Symbol, TradeType.Sell);
+
+            foreach (Position position in sellPositions)
+            {
+                double distance = position.EntryPrice - Symbol.Ask;
+
+                if (distance < TrailingStopTrigger * Symbol.PipSize)
+                    continue;
+
+                double newStopLossPrice = Symbol.Ask + TrailingStopStep * Symbol.PipSize;
+
+                if (position.StopLoss == null || newStopLossPrice < position.StopLoss)
+                {
+                    ModifyPosition(position, newStopLossPrice, position.TakeProfit);
+                }
+            }
+
+            var buyPositions = Positions.FindAll(InstanceName, Symbol, TradeType.Buy);
+
+            foreach (Position position in buyPositions)
+            {
+                double distance = Symbol.Bid - position.EntryPrice;
+
+                if (distance < TrailingStopTrigger * Symbol.PipSize)
+                    continue;
+
+                double newStopLossPrice = Symbol.Bid - TrailingStopStep * Symbol.PipSize;
+                if (position.StopLoss == null || newStopLossPrice > position.StopLoss)
+                {
+                    ModifyPosition(position, newStopLossPrice, position.TakeProfit);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Break Even
+
+        /// <summary>
+        /// Adjusts the break even plus (x) pips
+        /// </summary>
+        /// <param name="tradeType"></param>
+        private void BreakEvenAdjustment()
+        {
+            var allPositions = Positions.FindAll(InstanceName, Symbol);
+
+            foreach (Position position in allPositions)
+            {
+                if (position.StopLoss != null)
+                    return;
+
+                var entryPrice = position.EntryPrice;
+                var distance = position.TradeType == TradeType.Buy ? Symbol.Bid - entryPrice : entryPrice - Symbol.Ask;
+
+                // move stop loss to break even plus and additional (x) pips
+                if (distance >= BreakEvenPips * Symbol.PipSize)
+                {
+                    if (position.TradeType == TradeType.Buy)
+                    {
+                        if (position.StopLoss <= position.EntryPrice + (Symbol.PipSize * BreakEvenExtraPips) || position.StopLoss == null)
+                        {
+                            ModifyPosition(position, position.EntryPrice + (Symbol.PipSize * BreakEvenExtraPips), position.TakeProfit);
+                            Print("Stop Loss to Break Even set for BUY position {0}", position.Id);
+                        }
+                    }
+                    else
+                    {
+                        if (position.StopLoss >= position.EntryPrice - (Symbol.PipSize * BreakEvenExtraPips) || position.StopLoss == null)
+                        {
+                            ModifyPosition(position, entryPrice - (Symbol.PipSize * BreakEvenExtraPips), position.TakeProfit);
+                            Print("Stop Loss to Break Even set for SELL position {0}", position.Id);
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+    }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LRSI EHLER v3 (4)", "LRSI EHLER v3 (4)\LRSI EHLER v3 (4).csproj", "{1F2A04DB-20A7-447B-9193-6AA2011FA69D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ehlers Smoothed Adaptive Momentum", "..\..\Indicators\Ehlers Smoothed Adaptive Momentum\Ehlers Smoothed Adaptive Momentum\Ehlers Smoothed Adaptive Momentum.csproj", "{F589328D-EB2B-4A9D-8A2A-167CF3CFF406}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laguerre_RSI", "..\..\Indicators\Laguerre_RSI\Laguerre_RSI\Laguerre_RSI.csproj", "{DA201E79-0D9D-4583-9CB6-8C712566ECD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squeeze Momentum", "..\..\Indicators\Squeeze Momentum\Squeeze Momentum\Squeeze Momentum.csproj", "{0D526A74-AD71-48F1-83E4-795309568C1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2A04DB-20A7-447B-9193-6AA2011FA69D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB2E3C65-9DF6-4F27-B487-2F3DE9897425}
+	EndGlobalSection
+EndGlobal

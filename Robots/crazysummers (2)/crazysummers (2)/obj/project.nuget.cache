@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3d3MpYKWxS7IPn3COGSeTTN2sTmK/YrI8cJhYnBm4tX9r7FMqQfixCbBtLKfCiyU1oBXNe24INITSIC26FYOOg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\crazysummers (2)\\crazysummers (2)\\crazysummers (2).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.7\\ctrader.automate.1.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}

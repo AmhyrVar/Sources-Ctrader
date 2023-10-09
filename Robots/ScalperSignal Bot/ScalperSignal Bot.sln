@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalperSignal Bot", "ScalperSignal Bot\ScalperSignal Bot.csproj", "{318BAA26-83C1-4EF7-95D2-998096D3F19A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{318BAA26-83C1-4EF7-95D2-998096D3F19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318BAA26-83C1-4EF7-95D2-998096D3F19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318BAA26-83C1-4EF7-95D2-998096D3F19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318BAA26-83C1-4EF7-95D2-998096D3F19A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalperSignal", "..\..\Indicators\ScalperSignal\ScalperSignal\ScalperSignal.csproj", "{5E5F42A1-0F0D-4C91-B1D4-64FCA96F76F8}"
+EndProject

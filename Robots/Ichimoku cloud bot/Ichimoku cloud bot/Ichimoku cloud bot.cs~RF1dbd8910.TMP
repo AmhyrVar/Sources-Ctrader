@@ -1,0 +1,48 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Ichimokucloudbot : Robot
+    {
+        [Parameter(DefaultValue = 0.0)]
+        public double Parameter { get; set; }
+
+
+
+        private Bars data30min;
+
+        private Bars data5Min;
+        private Bars data15Min;
+
+        IchimokuKinkoHyo ichimoku1;
+        IchimokuKinkoHyo ichimoku2;
+        IchimokuKinkoHyo ichimoku3;
+
+
+
+        protected override void OnStart()
+        {
+            data30min = MarketData.GetBars(TimeFrame.Minute30);
+            ichimoku1 = Indicators.IchimokuKinkoHyo(9, 26, 52);
+            ichimoku2 = Indicators.IchimokuKinkoHyo(data30min, 9, 26, 52);
+
+        }
+
+        protected override void OnTick()
+        {
+            Print("1m SSA" + ichimoku1.SenkouSpanA.LastValue);
+            Print("30m SSA" + ichimoku2.SenkouSpanA.LastValue);
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

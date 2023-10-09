@@ -1,0 +1,61 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using CsvHelper;
+
+using System.Collections.Generic;
+using System.IO;
+
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class Ichitester : Robot
+    {
+        [Parameter(DefaultValue = "F:\\\\Ichimoku.csv")]
+        public string LogFile { get; set; }
+
+        protected override void OnStart()
+        {
+            using (var reader = new StreamReader("F:\\\\Ichimoku.csv"))
+                //, CultureInfo.InvariantCulture (after reader)
+                using (var csv = new CsvReader(reader))
+                {
+                    var records = csv.GetRecords<Foo>();
+                    var s = records.ToList();
+
+
+
+                var i = 0;
+                    foreach (var e in s)
+                    {
+                        Print(e.TF + " " + e.TimeEvent + " " + e.Direction);
+                    Chart.DrawVerticalLine("Line" + i, Bars.OpenTimes.LastValue, Color.Red, 5);
+                    }
+                }
+        }
+
+
+
+        public class Foo
+        {
+            public string Direction { get; set; }
+            public string TimeEvent { get; set; }
+
+            public string TF { get; set; }
+        }
+
+        protected override void OnTick()
+        {
+            // Put your core logic here
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

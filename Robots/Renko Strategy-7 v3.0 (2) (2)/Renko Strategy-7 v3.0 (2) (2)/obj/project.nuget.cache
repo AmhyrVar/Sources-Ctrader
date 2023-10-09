@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "LqBkPYfGAuB/Fg+EWIKwHWvMAfhGDmJ1iILDOhpV6mnjfunlGaweqPHhtjiwJd1OfOFJZlKfsWppFM6zVpenvw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\Renko Strategy-7 v3.0 (2) (2)\\Renko Strategy-7 v3.0 (2) (2)\\Renko Strategy-7 v3.0 (2) (2).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.7\\ctrader.automate.1.0.7.nupkg.sha512",
+    "C:\\Users\\Amir\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Amir\\.nuget\\packages\\telegram.bot\\18.0.0\\telegram.bot.18.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

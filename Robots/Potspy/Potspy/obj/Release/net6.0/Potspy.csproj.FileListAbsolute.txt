@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\bin\Release\net6.0\Potspy.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\bin\Release\net6.0\Potspy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\bin\Release\net6.0\Potspy.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\refint\Potspy.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\Potspy.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Potspy\Potspy\obj\Release\net6.0\ref\Potspy.dll

@@ -1,0 +1,17 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\hendrixmsc bot approved.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\hendrixmsc bot approved.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\hendrixmsc bot approved.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\RSIOMA.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\SMI.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\RSIOMA.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\bin\Release\net6.0\SMI.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\refint\hendrixmsc bot approved.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\hendrixmsc bot approved.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot approved\hendrixmsc bot approved\obj\Release\net6.0\ref\hendrixmsc bot approved.dll

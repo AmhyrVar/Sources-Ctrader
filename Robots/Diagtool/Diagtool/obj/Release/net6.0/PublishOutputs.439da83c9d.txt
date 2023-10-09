@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\publish\Diagtool.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\publish\Diagtool.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\publish\Diagtool.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\publish\cAlgo.API.dll

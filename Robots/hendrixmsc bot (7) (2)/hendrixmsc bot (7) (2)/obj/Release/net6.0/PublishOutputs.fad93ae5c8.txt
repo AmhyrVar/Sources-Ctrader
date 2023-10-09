@@ -1,0 +1,8 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\hendrixmsc bot (7) (2).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\hendrixmsc bot (7) (2).deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\hendrixmsc bot (7) (2).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\cAlgo.API.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\RSIOMA.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\SMI.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\RSIOMA.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (7) (2)\hendrixmsc bot (7) (2)\bin\Release\net6.0\publish\SMI.pdb

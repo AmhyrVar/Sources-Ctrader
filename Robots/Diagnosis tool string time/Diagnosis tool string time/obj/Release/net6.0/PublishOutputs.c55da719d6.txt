@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\publish\Diagnosis tool string time.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\publish\Diagnosis tool string time.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\publish\Diagnosis tool string time.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\publish\cAlgo.API.dll

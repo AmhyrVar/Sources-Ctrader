@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\bin\Release\net6.0\waqaarhussain.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\bin\Release\net6.0\waqaarhussain.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\bin\Release\net6.0\waqaarhussain.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\refint\waqaarhussain.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\waqaarhussain.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\waqaarhussain\waqaarhussain\obj\Release\net6.0\ref\waqaarhussain.dll

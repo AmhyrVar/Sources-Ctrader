@@ -1,0 +1,5 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Debug\net6.0\addb.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Debug\net6.0\addb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Debug\net6.0\addb.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Debug\net6.0\addb.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb\addb\obj\Debug\net6.0\addb.csproj.CoreCompileInputs.cache

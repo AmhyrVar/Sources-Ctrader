@@ -1,0 +1,144 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class NewcBot : Robot
+    {
+        [Parameter("Volume", DefaultValue = 0.1)]
+        public double volume { get; set; }
+        [Parameter("Stop Loss", DefaultValue = 10)]
+        public double SL { get; set; }
+        [Parameter("Take Profit", DefaultValue = 20)]
+        public double TP { get; set; }
+
+
+        [Parameter("Pips to trail", DefaultValue = 10)]
+        public double Trail { get; set; }
+
+        protected override void OnStart()
+        {
+
+            Positions.Closed += PositionsOnClosed;
+            ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Short", SL, TP);
+            ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Long", SL, TP);
+        }
+
+        private void PositionsOnClosed(PositionClosedEventArgs args)
+        {
+            // the reason for closing can be captured. 
+            switch (args.Reason)
+            {
+                case PositionCloseReason.StopLoss:
+                    Print("Position closed as stop loss was hit");
+                    if(args.Position.TradeType == TradeType.Buy && (args.Position.Label == "Short"|| args.Position.Label == "Long"))
+                    {
+                        ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "ShortC", SL, TP);
+                    }
+                    if (args.Position.TradeType == TradeType.Sell)
+                    {
+                        ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "LongC", SL, TP);
+                    }
+                    break;
+                case PositionCloseReason.StopOut:
+                    Print("Position closed as it was stopped out");
+                    break;
+                case PositionCloseReason.TakeProfit:
+                    Print("Position closed as take profit was hit");
+                    break;
+            }
+        }
+
+
+        /*First opens two positions(A & B) both buy and sell.
+When one of the positions hits stop loss then it opens another position (C) in the opposite direction of the position that has hit stop loss.
+When the two positions that are now open (A & C or B & C) which will either both be buy or sell positions hit SL or TP then bot opens another two positions a buy and sell position and cycle repeats.
+A & B position use the same adjustable lot size/bet per point parameter, but C has its own adjustable lot size parameter.
+All positions A, B and C need to have a Stoploss and Take profit parameters.*/
+
+        protected override void OnTick()
+        {
+            //BreakEvenRegion
+
+
+            var Longpos = Positions.FindAll("Long", SymbolName);
+            var Shortpos = Positions.FindAll("Short", SymbolName);
+
+            //BreakEven Trigger
+
+            if (Longpos.Length > 0)
+            {
+                foreach (var po in Longpos)
+                {
+                    if (po.StopLoss == null && po.Pips >= Trail)
+                    {
+                        po.ModifyStopLossPrice(po.EntryPrice);
+                    }
+
+                }
+            }
+
+            if (Shortpos.Length > 0)
+            {
+                foreach (var po in Shortpos)
+                {
+                    if (po.StopLoss == null && po.Pips >= Trail)
+                    {
+                        po.ModifyStopLossPrice(po.EntryPrice);
+                    }
+
+                }
+            }
+
+
+
+            //Trail Region
+
+            if (Longpos.Length > 0)
+            {
+                foreach (var po in Longpos)
+                {
+                    if (po.StopLoss != null && po.Pips >= Math.Abs(Convert.ToDouble(po.EntryPrice - po.StopLoss)) + 2 * Trail)
+                    {
+                        po.ModifyStopLossPips(-GetSLPips(po.Pips, Convert.ToDouble(po.StopLoss), po.EntryPrice));
+                    }
+
+                }
+            }
+
+
+
+            if (Shortpos.Length > 0)
+            {
+                foreach (var po in Shortpos)
+                {
+                    if (po.StopLoss != null && po.Pips >= Math.Abs(Convert.ToDouble(po.EntryPrice - po.StopLoss)) + 2 * Trail)
+                    {
+                        po.ModifyStopLossPips(-GetSLPips(po.Pips, Convert.ToDouble(po.StopLoss), po.EntryPrice));
+                    }
+
+                }
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+
+        private double GetSLPips(double PoPips, double PoSLPrice, double PoEntry)
+        {
+            var SLpips = Math.Abs(Convert.ToDouble(PoSLPrice - PoEntry));
+
+            var x = Math.Floor(PoPips / Trail);
+
+            return (x - 1) * Trail;
+        }
+
+    }
+}

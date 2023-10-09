@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vuj8KcQyJRDXNUa/CPf1vACI/ut82NrdeaaytP5PmLx0XchC72KR4Btw/tYhgih6p0pa8w1pgj6EETozLZmtFg==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\hendrixmsc bot approved.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\ctrader.automate\\1.0.8\\ctrader.automate.1.0.8.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI\\SMI\\SMI.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI\\SMI\\SMI.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI cAlgo\\SMI cAlgo\\SMI cAlgo.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI cAlgo\\SMI cAlgo\\SMI cAlgo.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSIOMA\\RSIOMA\\RSIOMA.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSIOMA\\RSIOMA\\RSIOMA.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSI cAlgo\\RSI cAlgo\\RSI cAlgo.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSI cAlgo\\RSI cAlgo\\RSI cAlgo.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}

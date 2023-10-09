@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fractals MA RSI", "Fractals MA RSI\Fractals MA RSI.csproj", "{AB814B9C-A4FA-41C3-B4CF-4789B2103793}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB814B9C-A4FA-41C3-B4CF-4789B2103793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB814B9C-A4FA-41C3-B4CF-4789B2103793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB814B9C-A4FA-41C3-B4CF-4789B2103793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB814B9C-A4FA-41C3-B4CF-4789B2103793}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb (3) (2)\addb (3) (2)\bin\Release\net6.0\publish\addb (3) (2).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb (3) (2)\addb (3) (2)\bin\Release\net6.0\publish\addb (3) (2).deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb (3) (2)\addb (3) (2)\bin\Release\net6.0\publish\addb (3) (2).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\addb (3) (2)\addb (3) (2)\bin\Release\net6.0\publish\cAlgo.API.dll

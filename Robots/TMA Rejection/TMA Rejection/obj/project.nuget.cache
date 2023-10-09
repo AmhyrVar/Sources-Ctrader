@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "gZ6+h4W4XMtjWhuYXSOlBAmzXUE7+Qhk6kpkiBpOII564Ebv3v2EbrJmKHk1CQ3ajUWrkIMAIWGqFRnYHtQ9TA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\TMA Rejection\\TMA Rejection\\TMA Rejection.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.2\\ctrader.automate.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

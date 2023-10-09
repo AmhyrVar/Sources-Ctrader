@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aJy1ukzzDdt1kSqebu2RtKus8y86w3XiwyOkwN1hY2zWRz/1GgCWDZSUgEXV1VrA4VDUULvBBzV8Gwri95g4Mg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot (6)\\hendrixmsc bot (6)\\hendrixmsc bot (6).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.6\\ctrader.automate.1.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

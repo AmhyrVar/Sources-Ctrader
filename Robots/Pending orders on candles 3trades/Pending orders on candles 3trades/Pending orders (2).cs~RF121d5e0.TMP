@@ -1,0 +1,180 @@
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class Pendingorders : Robot
+    {
+        [Parameter("TP multiplier", DefaultValue = 4)]
+        public double TPmultiplier { get; set; }
+
+        [Parameter("Risk percent", DefaultValue = 2)]
+        public double RiskPercent { get; set; }
+
+
+        public int OnTheBuy = 0;
+        public int OnTheSell = 0;
+
+        public bool OnTrade = false;
+        protected override void OnStart()
+        {
+            Positions.Closed += OnPositionsClosed;
+
+
+        }
+        void OnPositionsClosed(PositionClosedEventArgs obj)
+        {
+            OnTrade = false;
+            OnTheBuy = 0;
+            OnTheSell = 0;
+        }
+
+        protected override void OnTick()
+        {
+            foreach (var po in Positions)
+            {
+
+                var TPinPips = Math.Abs(Convert.ToDouble(po.TakeProfit - po.EntryPrice) / Symbol.PipSize);
+
+
+
+
+                if (po.Label == "LimitBot" && po.SymbolName == SymbolName && po.Pips >= TPinPips / 2 && po.StopLoss != po.EntryPrice)
+                {
+                    Print("old SL"+po.StopLoss);
+                    po.ModifyStopLossPips(po.EntryPrice);
+                    Print("New SL" + po.StopLoss);
+                }
+            }
+        }
+        protected override void OnBar()
+        {
+            //Breakeven if 50% TP
+
+
+
+            //A bot that after the close of a bar on X Timeframe creates a limit order at 50 % of the bar at the same direction of the bar, if the bar satisfies this:
+            if (OnTrade)
+            {
+
+                if (OnTheBuy == 1 || OnTheSell == 1)
+                {
+                    foreach (var order in PendingOrders)
+                    {
+                        if (order.Label == "LimitBot" && order.SymbolName == SymbolName)
+                        {
+                            CancelPendingOrder(order);
+                            OnTheBuy = 0;
+                            OnTheSell = 0;
+                            OnTrade = false;
+
+
+                        }
+                    }
+
+                }
+                if (OnTheBuy > 0)
+                {
+                    OnTheBuy--;
+
+                }
+                if (OnTheSell > 0)
+                {
+                    OnTheSell--;
+
+                }
+            }
+
+            //make this a parameter
+            // -bar body at least 60% of bar's lenghth.
+            // -Bar high/low goes beyond the previous bar
+            //  -bar close goes beyond the close of previous bar.
+
+            //  Stop loss: 1 pip beyond the low/high of the bar
+
+            //  Take profit: X times the Risk
+            //  Cancel order if after 4 bars the trade doesnt trigger.
+
+            if (!OnTrade && Math.Abs(Bars.ClosePrices.Last(1) - Bars.OpenPrices.Last(1)) >= (Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) * 0.6)            /* Body >= 60% bar length */
+            {
+                //long
+                if (Bars.OpenPrices.Last(1) < Bars.ClosePrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.ClosePrices.Last(1) > Bars.ClosePrices.Last(2))
+                {
+                    var targetprice = Bars.LowPrices.Last(1) + ((Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) / 2);
+                    var SLpips = 1 + ((Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) / 2) / Symbol.PipSize;
+                    var TPpips = SLpips * TPmultiplier;
+                    PlaceLimitOrder(TradeType.Buy, SymbolName, GetVolume(SLpips), targetprice, "LimitBot", SLpips, TPpips);
+
+
+                    OnTrade = true;
+                    OnTheBuy = 4;
+
+                }
+            }
+
+            //same for sell
+
+            if (!OnTrade && Math.Abs(Bars.ClosePrices.Last(1) - Bars.OpenPrices.Last(1)) >= (Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) * 0.6)            /* Body >= 60% bar length */
+            {
+                //short
+                if (Bars.OpenPrices.Last(1) > Bars.ClosePrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.ClosePrices.Last(1) < Bars.ClosePrices.Last(2))
+                {
+                    var targetprice = Bars.HighPrices.Last(1) - (Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) / 2;
+                    var SLpips = 1 + ((Bars.HighPrices.Last(1) - Bars.LowPrices.Last(1)) / 2) / Symbol.PipSize;
+                    var TPpips = SLpips * TPmultiplier;
+                    PlaceLimitOrder(TradeType.Sell, SymbolName, GetVolume(SLpips), targetprice, "LimitBot", SLpips, TPpips);
+
+                    OnTrade = true;
+                    OnTheSell = 4;
+                }
+            }
+
+
+
+
+
+
+        }
+
+
+        protected double GetVolume(double SL)
+        {
+
+
+            var x = 1.0;
+
+
+
+            var RawRisk = Account.Balance * RiskPercent / 100;
+            x = Math.Round((RawRisk) / (SL * Symbol.PipValue * Symbol.VolumeInUnitsMin));
+
+
+            if (Symbol.VolumeInUnitsMin > 1)
+            {
+                return Convert.ToInt32(x * Symbol.VolumeInUnitsMin);
+            }
+            else
+            {
+                return (x * Symbol.VolumeInUnitsMin);
+            }
+
+
+
+
+        }
+
+
+        protected override void OnStop()
+        {
+
+        }
+    }
+}

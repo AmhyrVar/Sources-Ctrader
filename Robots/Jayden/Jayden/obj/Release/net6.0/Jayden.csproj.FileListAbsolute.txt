@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\Jayden.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\Jayden.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\bin\Release\net6.0\Jayden.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\refint\Jayden.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\Jayden.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Jayden\Jayden\obj\Release\net6.0\ref\Jayden.dll

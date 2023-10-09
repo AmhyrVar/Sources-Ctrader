@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\bin\Release\net6.0\isaac.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\bin\Release\net6.0\isaac.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\bin\Release\net6.0\isaac.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\refint\isaac.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\isaac.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\isaac\isaac\obj\Release\net6.0\ref\isaac.dll

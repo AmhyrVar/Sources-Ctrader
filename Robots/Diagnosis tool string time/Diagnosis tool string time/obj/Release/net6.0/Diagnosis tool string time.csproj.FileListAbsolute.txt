@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\Diagnosis tool string time.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\Diagnosis tool string time.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\bin\Release\net6.0\Diagnosis tool string time.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\refint\Diagnosis tool string time.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\Diagnosis tool string time.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagnosis tool string time\Diagnosis tool string time\obj\Release\net6.0\ref\Diagnosis tool string time.dll

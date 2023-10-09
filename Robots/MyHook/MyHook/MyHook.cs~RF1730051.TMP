@@ -1,0 +1,54 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class MyHook : Robot
+    {
+        [Parameter("Webhook", Group = "Params", DefaultValue = "https://discord.com/api/webhooks/951151188043235389/iVvuUbTgJQm4ffk4ZkLt6EluaD2WQ11NJAAAj-I2JKVtljPVu4foOHEHgfmIOGHdYv9m")]
+        public string Webhook { get; set; }
+
+        [Parameter("Name", Group = "Params", DefaultValue = "Amir")]
+        public string Message { get; set; }
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+        }
+
+        public static void DiscordSendMessage(string url, string username, string content)
+        {
+            WebClient wc = new WebClient();
+
+            try
+            {
+                wc.UploadValues(url, new NameValueCollection
+                {
+                    "content" , content
+                },
+
+
+                { "username",username }
+            });
+        }
+        catch (WebException ex)
+            {
+            Print(ex.ToString()); }
+}
+
+        protected override void OnTick()
+        {
+            // Put your core logic here
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

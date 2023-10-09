@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qqN1ck7HozsSTn/DXJDTcSmEhdWybG8PyVLPuXKZ+nhT6VbxQCqgpDxUW9RJRXpeeJhbzOjTFbXi1Oi2/Dawvw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\mtf heiken (2)\\mtf heiken (2)\\mtf heiken (2).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.7\\ctrader.automate.1.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}

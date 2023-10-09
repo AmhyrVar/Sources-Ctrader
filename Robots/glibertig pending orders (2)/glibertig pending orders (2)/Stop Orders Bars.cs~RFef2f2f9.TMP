@@ -1,0 +1,54 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class StopOrdersBars : Robot
+    {
+        [Parameter("Number of Candles to watch", DefaultValue = 5)]
+        public int Candles_nbr { get; set; }
+
+        public bool trigger = true;
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+        }
+
+        protected override void OnBar()
+        {
+            if (trigger)
+            {
+                var i = 1;
+                var cMin = Bars.LowPrices.Last(1);
+                var cMax = Bars.HighPrices.Last(1);
+                for (i = 1; i < Candles_nbr + 1; i++)
+                {
+                    Print("Iteration number " + i);
+                    if (Bars.HighPrices.Last(i) > cMax)
+                    {
+                        cMax = Bars.HighPrices.Last(i);
+                    }
+                    if (Bars.LowPrices.Last(i) < cMin)
+                    {
+                        cMin = Bars.LowPrices.Last(i);
+                    }
+                }
+
+                PlaceLimitOrder(TradeType.Sell, SymbolName, 1000, cMax, "LimitPlacer", 50, 50);
+                PlaceLimitOrder(TradeType.Buy, SymbolName, 1000, cMin, "LimitPlacer", 50, 50);
+                trigger = false;
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

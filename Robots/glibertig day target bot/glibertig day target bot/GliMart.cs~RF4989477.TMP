@@ -1,0 +1,104 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class GliMart : Robot
+    {
+        [Parameter("Daily target", DefaultValue = 6)]
+        public double Target { get; set; }
+
+        [Parameter("TP Ratio", DefaultValue = 3)]
+        public double TPRatio { get; set; }
+
+        [Parameter("Daily max operations", DefaultValue = 5)]
+        public int DailyMaxOps { get; set; }
+
+        [Parameter("Buy today ?", DefaultValue = true)]
+        public bool TDirection { get; set; }
+
+
+        [Parameter("Risked amount", DefaultValue = 5)]
+        public double RiskAmount { get; set; }
+
+        [Parameter("SL Pips", DefaultValue = 5)]
+        public double SL { get; set; }
+
+        public int Iteration = 0;
+        public double InitialBalance;
+
+
+
+
+        protected override void OnStart()
+        {
+            InitialBalance = Account.Balance;
+            Positions.Closed += PositionsOnClosed;
+            Iteration++;
+            if (TDirection)
+            { ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(SL), "Mart", SL, SL * TPRatio); }
+            else { ExecuteMarketOrder(TradeType.Sell, SymbolName, GetVolume(SL), "Mart", SL, SL * TPRatio); }
+           
+        }
+
+        protected override void OnTick()
+        {
+            if (Account.Equity >= (InitialBalance + Target))
+            {
+
+            }
+        }
+
+        protected int GetVolume(double SL)
+        {
+
+            // x which is 1 = (balance * risk%)/(SL*pipvalue*1000) ROUND TO INT
+            var x = Math.Round((RiskAmount*Iteration) / (100 * SL * Symbol.PipValue * 1000));
+
+            //Convert.ToInt32(double)
+            //Print(x);
+            return Convert.ToInt32(x * 1000);
+
+        }
+
+        private void PositionsOnClosed(PositionClosedEventArgs args)
+        {
+            if (DailyMaxOps == Iteration)
+            {
+                Stop();
+            }
+            // the reason for closing can be captured. 
+            switch (args.Reason)
+            {
+                case PositionCloseReason.StopLoss:
+                    Print("Position closed as stop loss was hit");
+                    if (DailyMaxOps > Iteration &&  args.Position.TradeType == TradeType.Buy && args.Position.Label == "Mart")
+                    {
+                        Iteration++;
+                        ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(SL), "Mart", SL, SL * TPRatio);
+
+                    }
+                    if (DailyMaxOps > Iteration && args.Position.TradeType == TradeType.Sell && args.Position.Label == "Mart")
+                    {
+                        Iteration++;
+                        ExecuteMarketOrder(TradeType.Buy, SymbolName, GetVolume(SL), "Mart", SL, SL * TPRatio);
+
+                    }
+
+
+                    break;
+                case PositionCloseReason.StopOut:
+                    Print("Position closed as it was stopped out");
+                    break;
+                case PositionCloseReason.TakeProfit:
+                    Print("Position closed as take profit was hit");
+                    break;
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\bin\Release\net6.0\crazysummers.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\bin\Release\net6.0\crazysummers.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\bin\Release\net6.0\crazysummers.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\refint\crazysummers.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\crazysummers.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\crazysummers\crazysummers\obj\Release\net6.0\ref\crazysummers.dll

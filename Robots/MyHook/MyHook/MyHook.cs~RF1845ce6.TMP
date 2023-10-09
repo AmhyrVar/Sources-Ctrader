@@ -1,0 +1,84 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using System.Collections.Generic;
+using System.Text;
+using System.Net;
+using System.Collections.Specialized;
+using System.Threading.Tasks;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.FullAccess)]
+    public class MyHook : Robot
+    {
+        [Parameter("Webhook", Group = "Params", DefaultValue = "https://discord.com/api/webhooks/951151188043235389/iVvuUbTgJQm4ffk4ZkLt6EluaD2WQ11NJAAAj-I2JKVtljPVu4foOHEHgfmIOGHdYv9m")]
+        public string Webhook { get; set; }
+
+        [Parameter("Name", Group = "Params", DefaultValue = "Amir")]
+        public string User { get; set; }
+
+        protected override void OnStart()
+        {
+            Positions.Opened += OnPositionOpened;
+            Positions.Closed += OnPositionClosed;
+
+            DiscordSendMessage(Webhook, "Cpt Hook", "Hello");
+        }
+
+        public void OnPositionOpened(PositionOpenedEventArgs args)
+        {
+            double sl = (args.Position.StopLoss == null) ? 0 : (double)args.Position.StopLoss;
+            double tp = (args.Position.TakeProfit == null) ? 0 : (double)args.Position.TakeProfit;
+            var Message = "#{0} opened {1} position at {2} for {3} lots, stoploss {4} takeprofit {5}"
+            string messageformat = string.Format(Message, args.Position.SymbolName, args.Position.TradeType, args.Position.EntryPrice, args.Position.Quantity, sl, tp);
+
+            DiscordSendMessage(Webhook, User, messageformat);
+
+        }
+        public void OnPositionClosed(PositionClosedEventArgs args)
+        {
+        }
+
+
+        public static void DiscordSendMessage(string url, string username, string content)
+        {
+            WebClient wc = new WebClient();
+
+            try
+            {
+                wc.UploadValues(url, new NameValueCollection 
+                {
+                    {
+                        "content",
+                        content
+                    },
+
+
+                    {
+                        "username",
+                        username
+                    }
+                });
+
+            } catch (WebException ex)
+            {
+
+            }
+        }
+
+
+        protected override void OnTick()
+        {
+            // Put your core logic here
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

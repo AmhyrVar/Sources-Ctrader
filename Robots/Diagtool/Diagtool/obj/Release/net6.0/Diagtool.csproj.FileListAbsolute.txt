@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\Diagtool.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\Diagtool.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\bin\Release\net6.0\Diagtool.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\refint\Diagtool.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\Diagtool.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Diagtool\Diagtool\obj\Release\net6.0\ref\Diagtool.dll

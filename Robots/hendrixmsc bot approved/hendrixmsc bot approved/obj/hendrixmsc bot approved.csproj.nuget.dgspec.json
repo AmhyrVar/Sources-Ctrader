@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\hendrixmsc bot approved.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\hendrixmsc bot approved.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\hendrixmsc bot approved.csproj",
+        "projectName": "hendrixmsc bot approved",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\hendrixmsc bot approved.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Robots\\hendrixmsc bot approved\\hendrixmsc bot approved\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSI cAlgo\\RSI cAlgo\\RSI cAlgo.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSI cAlgo\\RSI cAlgo\\RSI cAlgo.csproj"
+              },
+              "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSIOMA\\RSIOMA\\RSIOMA.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\RSIOMA\\RSIOMA\\RSIOMA.csproj"
+              },
+              "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI cAlgo\\SMI cAlgo\\SMI cAlgo.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI cAlgo\\SMI cAlgo\\SMI cAlgo.csproj"
+              },
+              "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI\\SMI\\SMI.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\cAlgo\\Sources\\Indicators\\SMI\\SMI\\SMI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "cTrader.Automate": {
+              "target": "Package",
+              "version": "[1.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

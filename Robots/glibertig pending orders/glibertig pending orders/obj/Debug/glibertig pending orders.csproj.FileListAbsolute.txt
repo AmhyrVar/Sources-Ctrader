@@ -1,0 +1,9 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\bin\Debug\glibertig pending orders.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\bin\Debug\glibertig pending orders.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\bin\Debug\cAlgo.API.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\bin\Debug\cAlgo.API.xml
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\obj\Debug\glibertig pending orders.csprojAssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\obj\Debug\glibertig pending orders.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\obj\Debug\glibertig pending orders.csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\obj\Debug\glibertig pending orders.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\glibertig pending orders\glibertig pending orders\obj\Debug\glibertig pending orders.pdb

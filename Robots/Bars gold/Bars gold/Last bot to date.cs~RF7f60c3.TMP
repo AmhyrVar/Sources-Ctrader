@@ -1,0 +1,184 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Lastbottodate : Robot
+    {
+        [Parameter(DefaultValue = true)]
+        public bool Default_Strategy { get; set; }
+
+
+        [Parameter(DefaultValue = 0.1)]
+        public double volume { get; set; }
+
+        [Parameter(DefaultValue = 50)]
+        public double TP { get; set; }
+        [Parameter(DefaultValue = 50)]
+        public double SL { get; set; }
+
+        protected override void OnStart()
+        {
+           
+        }
+
+        protected override void OnTick()
+        {
+
+
+
+
+
+        }
+
+        protected override void OnBar()
+        {
+
+
+            var case_1_pos = Positions.FindAll("Case1", SymbolName);
+
+            var case_2_pos = Positions.FindAll("Case2", SymbolName);
+            var case_3_pos = Positions.FindAll("Case3", SymbolName);
+            var case_4_pos = Positions.FindAll("Case4", SymbolName);
+
+
+            if (Default_Strategy)
+            {
+
+                if (case_1_pos.Length > 0)
+                {
+                    foreach (var po in case_1_pos)
+                    {
+                        if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1))
+                        {
+                            ClosePosition(po);
+                            Print("Bullish close Case1");
+                        }
+                    }
+                }
+
+                if (case_2_pos.Length > 0)
+                {
+                    foreach (var po in case_2_pos)
+                    {
+                        if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1))
+                        {
+                            ClosePosition(po);
+                            Print("Bullish close Case2");
+                        }
+                    }
+                }
+
+
+                if (case_3_pos.Length > 0)
+                {
+                    foreach (var po in case_3_pos)
+                    {
+                        if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1))
+                        {
+                            ClosePosition(po);
+                            Print("Bearish close Case3");
+                        }
+                    }
+                }
+
+
+                if (case_4_pos.Length > 0)
+                {
+                    foreach (var po in case_4_pos)
+                    {
+                        if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1))
+                        {
+                            ClosePosition(po);
+                            Print("Bearish close Case4");
+                        }
+                    }
+                }
+
+
+
+
+                if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Symbol.Ask - Bars.LowPrices.Last(2)) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case1", SLpips, null);
+                    Print("Open Case1");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Symbol.Ask - Bars.LowPrices.Last(1)) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case2", SLpips, null);
+                    Print("Open Case2");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Bars.HighPrices.Last(1) - Symbol.Bid) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case3", SLpips, null);
+                    Print("Open Case3");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Bars.HighPrices.Last(2) - Symbol.Bid) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case4", SLpips, null);
+                    Print("Open Case4");
+                }
+
+            }
+
+            else
+            {
+
+                if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Symbol.Ask - Bars.LowPrices.Last(2)) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case1", SL, TP);
+                    Print("Open Case1");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Symbol.Ask - Bars.LowPrices.Last(1)) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case2", SL, TP);
+                    Print("Open Case2");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Bars.HighPrices.Last(1) - Symbol.Bid) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case3", SL, TP);
+                    Print("Open Case3");
+                }
+
+
+
+                if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+                {
+                    var SLpips = (Bars.HighPrices.Last(2) - Symbol.Bid) / Symbol.PipSize;
+                    ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case4", SL, TP);
+                    Print("Open Case4");
+                }
+            }
+
+        }
+
+       
+    }
+}

@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\bin\Release\net6.0\Crazy sum last to date.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\bin\Release\net6.0\Crazy sum last to date.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\bin\Release\net6.0\Crazy sum last to date.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\refint\Crazy sum last to date.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\Crazy sum last to date.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Crazy sum last to date\Crazy sum last to date\obj\Release\net6.0\ref\Crazy sum last to date.dll

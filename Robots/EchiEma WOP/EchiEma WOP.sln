@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchiEma WOP", "EchiEma WOP\EchiEma WOP.csproj", "{D6466AF9-7020-4719-8FF2-C6374B60943A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6466AF9-7020-4719-8FF2-C6374B60943A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6466AF9-7020-4719-8FF2-C6374B60943A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6466AF9-7020-4719-8FF2-C6374B60943A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6466AF9-7020-4719-8FF2-C6374B60943A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATR Stops", "..\..\Indicators\ATR Stops\ATR Stops\ATR Stops.csproj", "{C136D53A-8856-4A0C-9FB0-09661F8B65BC}"
+EndProject

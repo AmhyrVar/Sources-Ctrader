@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\publish\andrea.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\publish\andrea.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\publish\andrea.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\publish\cAlgo.API.dll

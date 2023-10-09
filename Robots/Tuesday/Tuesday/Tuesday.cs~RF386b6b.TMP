@@ -1,0 +1,64 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Tuesday : Robot
+    {
+        [Parameter(DefaultValue = 10.0)]
+        public double AwayPips { get; set; }
+
+
+        public bool State = false;
+
+
+
+        protected override void OnStart()
+        {
+
+        }
+
+        protected override void OnBar()
+        {
+            if (Server.Time.DayOfWeek == DayOfWeek.Wednesday && !State)
+            {
+                var highest = Bars.HighPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.HighPrices.Last(i) > highest)
+                        highest = Bars.HighPrices.Last(i);
+                }
+
+                var lowest = Bars.LowPrices.Last(1);
+                for (int i = 2; i <= 24; i++)
+                {
+                    if (Bars.LowPrices.Last(i) < lowest)
+                        lowest = Bars.LowPrices.Last(i);
+                }
+
+
+
+                var highestpips = highest + (AwayPips * Symbol.PipSize);
+                var lowestpips = lowest - (AwayPips * Symbol.PipSize);
+
+                Print("Highestpips " + highestpips);
+                Print("Lowestpips " + highestpips);
+
+
+                PlaceStopLimitOrder(TradeType.Buy, SymbolName, 1000, highestpips, 5, "BuyStop", 100, 100);
+                PlaceStopLimitOrder(TradeType.Sell, SymbolName, 1000, lowestpips, 5, "BuyStop", 100, 100);
+                Print("Highest " + highest);
+                Print("Lowest " + lowest);
+
+                State = true;
+            }
+        }
+
+
+    }
+}

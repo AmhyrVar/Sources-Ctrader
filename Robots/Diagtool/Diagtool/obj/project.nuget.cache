@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "82c4L3rIx0CzK1xcU+HDKmNg+kch4R56zIl+LNfPemwRq88YT/nH1KqoqiI2a2wxtEm+lkaHusm4JafYwDd1mg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\Diagtool\\Diagtool\\Diagtool.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.6\\ctrader.automate.1.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

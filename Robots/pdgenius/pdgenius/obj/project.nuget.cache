@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "GvB9uDKZKd/CBXfXE7F7hVHbMZIhq6CO+8/hbcuUN3nXOy1VPFWfao6LuhFINLiCKLIKmivDyAActabmeXmE3w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amir\\Documents\\cAlgo\\Sources\\Robots\\pdgenius\\pdgenius\\pdgenius.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amir\\.nuget\\packages\\ctrader.automate\\1.0.6\\ctrader.automate.1.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

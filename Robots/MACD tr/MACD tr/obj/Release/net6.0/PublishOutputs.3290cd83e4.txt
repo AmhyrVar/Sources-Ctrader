@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\MACD tr\MACD tr\bin\Release\net6.0\publish\MACD tr.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\MACD tr\MACD tr\bin\Release\net6.0\publish\MACD tr.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\MACD tr\MACD tr\bin\Release\net6.0\publish\MACD tr.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\MACD tr\MACD tr\bin\Release\net6.0\publish\cAlgo.API.dll

@@ -1,0 +1,173 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class Lastbottodate : Robot
+    {
+        [Parameter(DefaultValue = 0.0)]
+        public double Parameter { get; set; }
+
+
+        [Parameter(DefaultValue = 0.1)]
+        public double volume { get; set; }
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+        }
+
+        protected override void OnTick()
+        {
+            var case_1_pos = Positions.FindAll("case1", SymbolName);
+
+            var case_2_pos = Positions.FindAll("case2", SymbolName);
+            var case_3_pos = Positions.FindAll("case3", SymbolName);
+            var case_4_pos = Positions.FindAll("case4", SymbolName);
+
+            if (case_1_pos.Length > 0)
+            {
+                foreach (var po in case_1_pos)
+                {
+                    if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1))
+                    {
+                        ClosePosition(po);
+                        Print("Bullish close Case1");
+                    }
+                }
+            }
+
+            if (case_2_pos.Length > 0)
+            {
+                foreach (var po in case_2_pos)
+                {
+                    if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1))
+                    {
+                        ClosePosition(po);
+                        Print("Bullish close Case2");
+                    }
+                }
+            }
+
+
+            if (case_3_pos.Length > 0)
+            {
+                foreach (var po in case_3_pos)
+                {
+                    if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1))
+                    {
+                        ClosePosition(po);
+                        Print("Bearish close Case3");
+                    }
+                }
+            }
+
+
+            if (case_4_pos.Length > 0)
+            {
+                foreach (var po in case_4_pos)
+                {
+                    if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1))
+                    {
+                        ClosePosition(po);
+                        Print("Bearish close Case4");
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        protected override void OnBar()
+        {
+
+            //I'll put the close position in ontick method
+
+                        /* Case 1 : 
+             * Open a buy if :
+             * 1-Candle close bullish ------------------------------------
+             * 2-Candle's high is higher than previous candle's high------
+             * 3- Candle's low > previous candle's low--------------------
+             * 4- SL = Previous candle's LowPrices------------------------
+             * 5- Close if the next candle is bullish-------> Label by case and close at condition
+             * 
+             */
+            //Case 1
+if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+            {
+                var SLpips = (Symbol.Ask - Bars.LowPrices.Last(2)) / Symbol.PipSize;
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case1", SLpips, null);
+                Print("Open Case1");
+            }
+
+                        /*Case 2:
+             * Open a buy if:
+             * 1-Candle Closes in Bullish--------------------------------------------------------------
+             * 2- this reference bar high price < previous bar's highprice*****************************
+             * 3- ref bar low price < previous bar low price******************************************
+             * 4- SL at ref bar low price**************************************************************
+             * 5- the position runs until a candle closes un bull 
+             * 
+             * Question( if bear then small bull below the entry level should we still close ?)
+             */
+            //Case 2
+
+if (Bars.ClosePrices.Last(1) > Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+            {
+                var SLpips = (Symbol.Ask - Bars.LowPrices.Last(1)) / Symbol.PipSize;
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case2", SLpips, null);
+                Print("Open Case2");
+            }
+
+                        /* 
+             * Case 3:
+             * Open a sell if
+             * 1-Bearish candle******************************************
+             * 2-Ref candle high > previous candle high *****************
+             * 3-Ref candle Low > previous candle low*******************
+             * 4-SL at ref candle High*************************************
+             * 5-Close when a bearish form with profit
+             */
+            //Case 3 
+
+if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) > Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) > Bars.LowPrices.Last(2))
+            {
+                var SLpips = (Bars.HighPrices.Last(1) - Symbol.Bid) / Symbol.PipSize;
+                ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case3", SLpips, null);
+                Print("Open Case3");
+            }
+
+
+
+                        /* 
+            * Case 4 :
+            * Open a Sell if:
+            * Ref candle bearish******************************
+            * 1-ref high price < previous bar high price******
+            * 2- ref low price < previous bar low price*******
+            * 3- SL = highprice of previous candle*********** 
+            * 4- Close at a bearish with profit
+            */
+
+if (Bars.ClosePrices.Last(1) < Bars.OpenPrices.Last(1) && Bars.HighPrices.Last(1) < Bars.HighPrices.Last(2) && Bars.LowPrices.Last(1) < Bars.LowPrices.Last(2))
+            {
+                var SLpips = (Bars.HighPrices.Last(2) - Symbol.Bid) / Symbol.PipSize;
+                ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "Case4", SLpips, null);
+                Print("Open Case4");
+            }
+
+        }
+
+        protected override void OnStop()
+        {
+            // Should we have only one position per symbol ?
+        }
+    }
+}

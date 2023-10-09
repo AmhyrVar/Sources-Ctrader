@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\publish\pdgenius.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\publish\pdgenius.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\publish\pdgenius.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\pdgenius\pdgenius\bin\Release\net6.0\publish\cAlgo.API.dll

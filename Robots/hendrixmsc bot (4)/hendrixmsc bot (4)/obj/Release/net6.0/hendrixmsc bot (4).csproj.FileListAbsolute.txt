@@ -1,0 +1,17 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\hendrixmsc bot (4).deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\hendrixmsc bot (4).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\hendrixmsc bot (4).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\RSIOMA.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\SMI.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\RSIOMA.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\bin\Release\net6.0\SMI.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).csproj.CopyComplete
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\refint\hendrixmsc bot (4).dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\hendrixmsc bot (4).pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\hendrixmsc bot (4)\hendrixmsc bot (4)\obj\Release\net6.0\ref\hendrixmsc bot (4).dll

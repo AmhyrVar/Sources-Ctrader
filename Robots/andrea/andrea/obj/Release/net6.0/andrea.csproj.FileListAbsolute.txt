@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\andrea.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\andrea.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\bin\Release\net6.0\andrea.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\refint\andrea.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\andrea.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\andrea\andrea\obj\Release\net6.0\ref\andrea.dll

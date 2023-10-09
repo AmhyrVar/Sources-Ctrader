@@ -1,0 +1,95 @@
+﻿using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using System.Collections.Generic;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class StopOrdersBars : Robot
+    {
+        [Parameter("Number of Candles to watch", DefaultValue = 5)]
+        public int Candles_nbr { get; set; }
+
+        [Parameter("Number of Candles to cancel Pending", DefaultValue = 10)]
+        public int Candles_Cancel { get; set; }
+
+        public bool trigger = true;
+
+        public DateTime MinTime;
+        public DateTime MaxTime;
+
+        Dictionary<TradeResult, DateTime> PendingDict = new Dictionary<TradeResult, DateTime>();
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+        }
+
+        protected override void OnBar()
+        {
+            foreach (KeyValuePair<TradeResult, DateTime> PendingPair in PendingDict)
+            {
+                //Print("Key: {0}, Value: {1}", PendingPair.Key, PendingPair.Value);
+                if (Bars.OpenTimes.Last(Candles_Cancel) > PendingPair.Value)
+                {
+                    CancelPendingOrder(PendingPair.Key.PendingOrder);
+                    Print("Order Cancelled");
+                }
+            }
+
+            if (!trigger && Bars.OpenTimes.Last(Candles_nbr) > MinTime && Bars.OpenTimes.Last(Candles_nbr) > MaxTime)
+            {
+                Print("Node");
+                Print("Bars Open Last Candles_nbr" + Bars.OpenTimes.Last(Candles_nbr));
+                trigger = true;
+            }
+
+            if (trigger)
+            {
+                var i = 1;
+                var cMin = Bars.LowPrices.Last(1);
+                var cMax = Bars.HighPrices.Last(1);
+
+                for (i = 1; i < Candles_nbr + 1; i++)
+                {
+                    Print("Iteration number " + i);
+                    if (Bars.HighPrices.Last(i) > cMax)
+                    {
+                        cMax = Bars.HighPrices.Last(i);
+                        MaxTime = Bars.OpenTimes.Last(i);
+                    }
+                    if (Bars.LowPrices.Last(i) < cMin)
+                    {
+                        cMin = Bars.LowPrices.Last(i);
+                        MinTime = Bars.OpenTimes.Last(i);
+                    }
+                }
+
+                var SLO = PlaceLimitOrder(TradeType.Sell, SymbolName, 1000, cMax, "LimitPlacer", 50, 50);
+                var BLO = PlaceLimitOrder(TradeType.Buy, SymbolName, 1000, cMin, "LimitPlacer", 50, 50);
+                trigger = false;
+                //Print("MinTIme " + MinTime);
+                //Print("MaxTime" + MaxTime);
+                //Print("SLO " + SLO);
+                //Print("BLO " + BLO);
+
+                PendingDict.Add(BLO, Bars.OpenTimes.Last(1));
+                PendingDict.Add(SLO, Bars.OpenTimes.Last(1));
+
+
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // Breakeven
+            // TPSL
+            // Close pendings
+            // More questions
+        }
+    }
+}

@@ -1,0 +1,126 @@
+﻿using cAlgo.API;
+using System;
+using System.Globalization;
+
+namespace cAlgo.Robots
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    public class NewcBot : Robot
+    {
+        [Parameter(DefaultValue = 0.01)]
+        public double volume { get; set; }
+
+        [Parameter(DefaultValue = 70)]
+        public double TP { get; set; }
+
+
+        [Parameter(DefaultValue = 50)]
+        public double SL { get; set; }
+
+        private TimeSpan _startTime, _endTime, _closeTime;
+
+        [Parameter("Start Time", DefaultValue = "20:30:00", Group = "Time Filter")]
+        public string StartTime { get; set; }
+
+        [Parameter("End Time", DefaultValue = "21:10:00", Group = "Time Filter")]
+        public string EndTime { get; set; }
+
+        [Parameter("Close Time", DefaultValue = "20:50:00", Group = "Time Filter")]
+        public string CloseTime { get; set; }
+
+
+
+
+        protected override void OnStart()
+        {
+            if (!TimeSpan.TryParse(StartTime, CultureInfo.InvariantCulture, out _startTime))
+            {
+                Print("Invalid start time input");
+
+                Stop();
+            }
+
+            if (!TimeSpan.TryParse(EndTime, CultureInfo.InvariantCulture, out _endTime))
+            {
+                Print("Invalid end time input");
+
+                Stop();
+            }
+            if (!TimeSpan.TryParse(CloseTime, CultureInfo.InvariantCulture, out _closeTime))
+            {
+                Print("Invalid end time input");
+
+                Stop();
+            }
+
+        }
+        /*Open a buy and sell position at the same time once a 1 - minute candle closes.
+            For buy position: put the TP at 70 pips and SL at -50 pips.
+            For sell position: put the TP at 70 pips and SL at -50 pips.
+
+            I would like to have a code once done so that I can change the number of pips for TP and SL
+            Add in the code that it shouldn't open a position the first 10 minutes when market opens.*/
+        //NO TRADE TIME IS 
+/*
+             * To be clear, so when we run the bot it should open sell and buy positions immediately.  
+             * And whenever the server time is between 20:30 and 21:10 it should not trade .
+             * 
+             * 
+             * For example, a buy position is opened at 20:25 but it doesn't hit SL or TP by 20:30 but it must be closed by 20:50
+             * 
+             * 
+             * 
+             * 
+             */
+
+
+
+
+
+                private DateTime CurrentTime
+        {
+            get { return Server.TimeInUtc.Add(-Application.UserTimeOffset); }
+        }
+
+        private bool IsTimeIncorrect
+        {
+            // get { return (_startTime > _endTime && (CurrentTime.TimeOfDay >= _startTime || CurrentTime.TimeOfDay <= _endTime)) || (_startTime < _endTime && (CurrentTime.TimeOfDay >= _startTime && CurrentTime.TimeOfDay <= _endTime)); }
+            get { return ((CurrentTime.TimeOfDay > _startTime) && (CurrentTime.TimeOfDay < _endTime)); }
+        }
+
+        protected override void OnTick()
+        {
+            if (CurrentTime.TimeOfDay == _closeTime)
+            {
+                foreach (var pos in Positions)
+                {
+                    if (pos.Label == "MinuteMaid" && pos.SymbolName == SymbolName )
+                    {
+                        ClosePosition(pos);
+                    }
+                }
+            }
+        }
+        protected override void OnBar()
+        {
+            // Put your core logic here
+
+
+
+            Print("It's " + CurrentTime + " and ITI returns " + IsTimeIncorrect);
+
+            if (!IsTimeIncorrect)
+            {
+                ExecuteMarketOrder(TradeType.Buy, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "MinuteMaid", SL, TP);
+                ExecuteMarketOrder(TradeType.Sell, SymbolName, Symbol.QuantityToVolumeInUnits(volume), "MinuteMaid", SL, TP);
+            }
+
+            //if (Server.Time.Hour >= 7 && Server.Time.Hour < 10)
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+    }
+}

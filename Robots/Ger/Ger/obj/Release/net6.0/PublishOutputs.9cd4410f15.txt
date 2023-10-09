@@ -1,0 +1,6 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\Ger.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\Ger.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\Ger.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\cAlgo.API.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\SuperProfit.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Ger\Ger\bin\Release\net6.0\publish\SuperProfit.pdb

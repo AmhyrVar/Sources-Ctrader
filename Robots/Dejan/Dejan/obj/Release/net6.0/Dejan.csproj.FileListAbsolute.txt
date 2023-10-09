@@ -1,0 +1,12 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\Dejan.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\Dejan.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\bin\Release\net6.0\Dejan.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.csproj.AssemblyReference.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.AssemblyInfoInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.AssemblyInfo.cs
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.csproj.CoreCompileInputs.cache
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\refint\Dejan.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\Dejan.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\Dejan\Dejan\obj\Release\net6.0\ref\Dejan.dll

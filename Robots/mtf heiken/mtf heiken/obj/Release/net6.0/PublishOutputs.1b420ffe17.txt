@@ -1,0 +1,4 @@
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\mtf heiken\mtf heiken\bin\Release\net6.0\publish\mtf heiken.dll
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\mtf heiken\mtf heiken\bin\Release\net6.0\publish\mtf heiken.deps.json
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\mtf heiken\mtf heiken\bin\Release\net6.0\publish\mtf heiken.pdb
+C:\Users\Amir\Documents\cAlgo\Sources\Robots\mtf heiken\mtf heiken\bin\Release\net6.0\publish\cAlgo.API.dll
